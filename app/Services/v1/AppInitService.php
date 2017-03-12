@@ -7,20 +7,20 @@ use DB;
 /**
 * @todo add comment here
 */
-class AppInitService
+class AppInitService extends Service
 {
 	/* Get current client's details */
 	public function getClient($client) 
 	{
-		$output = array();
 		$clients = DB::table('clients')->where('url', $client)->get();
 
+		$content = [];
 		foreach ($clients as $client) {
-			$output['url'] = $client->url;
-			$output['logo'] = $client->logo;
-			$output['name'] = $client->clients_name;
+			$content['url'] = $client->url;
+			$content['logo'] = $client->logo;
+			$content['name'] = $client->clients_name;
 		}
 
-		return $output;
+		return $this->createResponse($content);
 	}
 }

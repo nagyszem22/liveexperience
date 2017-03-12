@@ -93,6 +93,8 @@ return [
 
     'key' => env('APP_KEY', 'base64:ZJ5pNeEM8an8z0ab3ggYhqBxcwyx7EsL6EqVr5HjWTU='),
 
+    'api_key' => 'S5Sxr6dVp93qtFVA',
+
     'cipher' => 'AES-256-CBC',
 
     /*
@@ -156,6 +158,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\v1\AppInitServiceProvider::class,
+        App\Providers\v1\UserServiceProvider::class,
+        App\Providers\v1\ErrorServiceProvider::class,
 
     ],
 

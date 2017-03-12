@@ -1,0 +1,120 @@
+//////////////////////////////////////////////////
+// FIRST CALL
+//------------------------------------------------
+// url: api/v1/init/{client}
+// type: GET
+// errors: 1
+//////////////////////////////////////////////////
+
+/* response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"url":"sporting",
+		"logo":"https:\/\/upload.wikimedia.org\/wikipedia\/en\/3\/3e\/Sporting_Clube_de_Portugal.png",
+		"name":"Sporting Lisboa"
+	}
+}
+
+
+
+//////////////////////////////////////////////////
+// TICKET
+//------------------------------------------------
+// url: api/v1/user/ticket/{client}
+// type: POST
+// errors: 1,2,4,5,6,7
+//////////////////////////////////////////////////
+
+/* request */
+{
+	"email": "something@something.com",
+	"ticket": "ticket number"
+}
+
+/* response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"email": "something@something.com",
+		"ticket": "ticket number",
+		"is_user": 0 // 0 - no, he/she is not, 1 - yes, he/she is
+	}
+}
+
+
+
+
+
+
+//////////////////////////////////////////////////
+// ERROR HANDLING
+//////////////////////////////////////////////////
+
+/* 1 */
+{
+	"status": {
+		"code": 1,
+		"name": "client does not exist"
+	},
+	"content": {}
+}
+
+/* 2 */
+{
+	"status": {
+		"code": 2,
+		"name": "form validation failed"
+	},
+	"content": {
+		"email": ["The email must be a valid email address."],
+		"password": ["Not strong enough.", "Password confirmation failed."],
+		"...": ["...", "..."]
+	}
+}
+
+/* 3 */
+{
+	"status": {
+		"code": 3,
+		"name": "user authentication failed"
+	}
+}
+
+/* 4 */
+{
+	"status": {
+		"code": 4,
+		"name": "user does not have a ticket"
+	}
+}
+
+/* 5 */
+{
+	"status": {
+		"code": 5,
+		"name": "ticket is not owned by the user"
+	}
+}
+
+/* 6 */
+{
+	"status": {
+		"code": 6,
+		"name": "match has not started yet"
+	}
+}
+
+/* 7 */
+{
+	"status": {
+		"code": 7,
+		"name": "match has already ended"
+	}
+}
