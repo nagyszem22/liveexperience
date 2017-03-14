@@ -50,6 +50,64 @@
 
 
 
+//////////////////////////////////////////////////
+// LOGIN
+//------------------------------------------------
+// url: api/v1/user/login/{client}
+// type: POST
+// errors: 1,2,3,4,5,6,7
+//////////////////////////////////////////////////
+
+/* request */
+{
+	"email": "something@something.com",
+	"password": "encoded_password",
+	"ticket": "ticket number",
+	"device": "samsung galaxy S7, android 6.1"
+}
+
+/* response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"device_token": "SDfdFDSfsdm45sF4d",	
+	}
+}
+
+
+
+//////////////////////////////////////////////////
+// REGISTER
+//------------------------------------------------
+// url: api/v1/user/registration/{client}
+// type: POST
+// errors: 1,2,3,4,5,6,7
+//////////////////////////////////////////////////
+
+/* request */
+{
+	"email": "something@something.com",
+	"password": "encoded_password",
+	"password_confirmation": "encoded_password",
+	"ticket": "ticket number",
+	"device": "samsung galaxy S7, android 6.1"
+}
+
+/* response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"device_token": "SDfdFDSfsdm45sF4d",
+	}
+}
+
+
 
 
 

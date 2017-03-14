@@ -73,4 +73,30 @@ class UserController extends Controller
         /* return answer */
         return response()->json($answer);
     }
+
+
+
+    /* register the current user */
+    public function registration(Request $request) 
+    {
+        /* validate request */
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|confirmed',
+            'ticket' => 'required',
+            'device' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $this->error->formValidationFailed($validator->messages()),
+            200);
+        }
+
+        /* call registration method */
+        $answer = $this->user->registration($request->input());
+
+        /* return answer */
+        return response()->json($answer);
+    }
 }

@@ -82,7 +82,7 @@
 //////////////////////////////////////////////////
 // REGISTER
 //------------------------------------------------
-// url: api/v1/user/register/{client}
+// url: api/v1/user/registration/{client}
 // type: POST
 // errors: 1
 //////////////////////////////////////////////////
@@ -103,7 +103,7 @@
 		"name": "successfull request"
 	},
 	"content": {
-		"device_token": "SDfdFDSfsdm45sF4d",	
+		"device_token": "SDfdFDSfsdm45sF4d",
 	}
 }
 

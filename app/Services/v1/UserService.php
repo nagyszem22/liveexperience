@@ -122,6 +122,47 @@ class UserService extends Service
 
 
 
+	public function registration($input)
+	{
+		$user = DB::table('users')->where('email', $input['email'])->first();
+		if ($user == null) {
+			return $this->error->userAuthFailed();
+		}
+
+		$ticket = DB::table('ticket')->where('code', $input['ticket'])->first();
+		if ($ticket == null) {
+			return $this->error->userDoesNotHaveTicket();
+		}
+
+		$relation = DB::table('users_to_ticket')->where('user', $user->id)->where('ticket', $ticket->id)->first();
+		if ($relation == null) {
+			return $this->error->notTheUsersTicket();
+		}
+
+		/* @todo: convert it to the local match time */
+		$now = strtotime(date("Y-m-d H:i:s"));
+		$now = 2147483647;
+		if ($now < $ticket->start) {
+			return $this->error->matchHasNotStarted();
+		}
+
+		if ($now > $ticket->start) {
+			return $this->error->matchHasFinished();
+		}
+
+		/* add user's device */
+		$deviceToken = str_random(16);
+		DB::table('device_tokens')->insertGetId(
+		    ['token' => $deviceToken, 'user_id' => $user->id, 'device' => $input['device']]
+		);
+
+		/* add user's password */
+		DB::table('users')->where('id', $user->id)->update(['password' => $input['password']]);
+
+		return $this->createResponse(["device_token" => $deviceToken]);
+	}
+
+
 	/* Make current user log out */
 	public function logout($deviceToken) 
 	{
