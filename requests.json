@@ -63,7 +63,8 @@
 	"email": "something@something.com",
 	"password": "encoded_password",
 	"ticket": "ticket number",
-	"device": "samsung galaxy S7, android 6.1"
+	"device": "samsung galaxy S7, android 6.1",
+	"language": 1 // 1 - Hungarian, 2 - English
 }
 
 /* response */
@@ -93,7 +94,8 @@
 	"password": "encoded_password",
 	"password_confirmation": "encoded_password",
 	"ticket": "ticket number",
-	"device": "samsung galaxy S7, android 6.1"
+	"device": "samsung galaxy S7, android 6.1",
+	"language": 1 // 1 - Hungarian, 2 - English
 }
 
 /* response */

@@ -5,6 +5,7 @@ namespace App\Services\v1;
 use DB;
 
 use App\Services\v1\ErrorService;
+use App\Services\v1\AppInitService;
 
 /**
 * @todo add comment here
@@ -12,9 +13,10 @@ use App\Services\v1\ErrorService;
 class UserService extends Service
 {
 	protected $error;
-	public function __construct(ErrorService $error) 
+	public function __construct(ErrorService $error, AppInitService $appInit) 
 	{
 		$this->error = $error;
+		$this->appInit = $appInit;
 	}
 
 
@@ -112,12 +114,14 @@ class UserService extends Service
 			return $this->error->matchHasFinished();
 		}
 
-		$deviceToken = str_random(16);
-		DB::table('device_tokens')->insertGetId(
-		    ['token' => $deviceToken, 'user_id' => $user->id, 'device' => $input['device']]
-		);
+		/* add user's device */
+		$deviceToken = $this->addDevice($user, $ticket, $input);
 
-		return $this->createResponse(["device_token" => $deviceToken]);
+		/* send the response back */
+		return $this->createResponse([
+			"device_token" => $deviceToken, 
+			"init_content" => $this->appInit->initMatchDay($ticket->match_id, $input['language'])
+		]);
 	}
 
 
@@ -151,15 +155,16 @@ class UserService extends Service
 		}
 
 		/* add user's device */
-		$deviceToken = str_random(16);
-		DB::table('device_tokens')->insertGetId(
-		    ['token' => $deviceToken, 'user_id' => $user->id, 'device' => $input['device']]
-		);
+		$deviceToken = $this->addDevice($user, $ticket, $input);
 
 		/* add user's password */
 		DB::table('users')->where('id', $user->id)->update(['password' => $input['password']]);
 
-		return $this->createResponse(["device_token" => $deviceToken]);
+		/* send the response back */
+		return $this->createResponse([
+			"device_token" => $deviceToken, 
+			"init_content" => $this->appInit->initMatchDay($ticket->match_id, $input['language'])
+		]);
 	}
 
 
@@ -167,5 +172,27 @@ class UserService extends Service
 	public function logout($deviceToken) 
 	{
 		
+	}
+
+
+
+	/////////////////////////////////////////////////////
+	/// HELPER FUNCTIONS
+	/////////////////////////////////////////////////////
+
+	public function addDevice($user, $ticket, $input)
+	{
+		$deviceToken = str_random(16);
+		DB::table('device_tokens')->insert([
+			'token' => $deviceToken, 
+			'user_id' => $user->id,
+			'match_id' => $ticket->match_id,
+			'language_id' => $input['language'],
+			'device' => $input['device'],
+			'expires' => $ticket->finish,
+			'created_at' => date("Y-m-d H:i:s")
+		]);
+
+		return $deviceToken;
 	}
 }

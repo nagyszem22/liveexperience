@@ -59,6 +59,7 @@ class UserController extends Controller
             'password' => 'required',
             'ticket' => 'required',
             'device' => 'required',
+            'language' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -85,6 +86,7 @@ class UserController extends Controller
             'password' => 'required|confirmed',
             'ticket' => 'required',
             'device' => 'required',
+            'language' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
