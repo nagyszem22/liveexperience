@@ -74,9 +74,178 @@
 		"name": "successfull request"
 	},
 	"content": {
-		"device_token": "SDfdFDSfsdm45sF4d",	
+		"device_token": "sRbsARUgZCIJfKJU",
+		"app_content": {
+			"match": {
+				"goals": {
+					"home": 0,
+				    "home_halftime": 0,
+				    "away": 0,
+				    "away_halftime": 0
+				},
+				"kickoff": "2017-03-15 13:55:00",
+				"kickoff_real": "2017-03-14 13:32:32",
+				"end_time": "0000-00-00 00:00:00",
+				"stadium": "Szusza Ferenc Stadion",
+				"competition_name": "Magyar Kupa",
+				"competition_logo": "http:\/\/www.futballista.hu\/wp-content\/uploads\/2012\/06\/c5415409822ae9bd4942ba87582fcfaf.jpg",
+				"referees": [
+					{
+						"name": "Farkas \u00c1d\u00e1m",
+						"role": "J\u00e1t\u00e9kvezet\u0151"
+					},
+					{
+						"name": "Varga Zsolt",
+					    "role":"Tartal\u00e9k j\u00e1t\u00e9kvezet\u0151"
+					},
+					"etc ..."
+				]
+			},
+			"teams": {
+				"home": {
+					"name": "\u00dajpest Fc",
+					"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/5\/4730.jpg",
+					"color": "#df45d4", 
+					"secondary_color": "#4524ab",
+					"goals": 0, 
+					"goals_halftime": 0,
+					"line_up": [
+						{
+							"role": "start", // start / bench
+							"team_id": 0,
+							"changed": 0, // 1 if the player's status has been changed (so if role is start but change is 1, then the player substituted out during the match) 
+							"name": "Balajcza Szabolcs",
+						    "number": 1,
+						    "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/803\/802103.jpg",
+						    "birthday":"1979-07-14"
+						},
+						{
+						   "role": "start",
+						   "team_id": 0, 
+						   "changed": 0,
+						   "name": "K\u00e1lnoki Kis D\u00e1vid ","number":4,
+						   "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/806\/805485.jpg",
+						   "birthday": "1991-08-06"
+						},
+						"etc ..."
+					]
+				},
+				"away": {
+					"name": "Ferencv\u00e1rosi Tc",
+					"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/4\/3360.gif",
+					"color": "",
+					"secondary_color": "",
+					"goals": 0,
+					"goals_halftime": 0,
+					"line_up": [
+						{
+							"role": "start",
+						    "team_id": 0,
+						    "changed": 0,
+						    "name": "Dibusz D\u00e9nes",
+						    "number": 90,
+						    "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/johndoe.png",
+						    "birthday": "1990-11-16"
+						},
+						{
+							"role": "start",
+						    "team_id": 0,
+						    "changed": 0,
+						    "name": "Oliver  H\u00fcsing ",
+						    "number": 5,
+						    "picture":"http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/882\/881028.jpg",
+						    "birthday":"1993-02-17"
+						},
+						"etc ..."
+					]
+				}
+			},
+			"modules": [
+				{
+					"name": "The Experience",
+				    "logo": "https:\/\/static-s.aa-cdn.net\/img\/gp\/20600004165804\/kukObyo-3k8Z3tZsgUZ2ihwqvW2T-VNu_l-gKkzrw5Zr62G9_zgE7lV6C3Air5s5Lu4=w300?v=1",
+				    "place": 1
+				},
+				{
+					"name": "E-Concession\r\n",
+				    "logo": "https:\/\/pbs.twimg.com\/profile_images\/570187971886727168\/eYcdJQr__reasonably_small.jpeg",
+				    "place": 2
+				},
+				{
+					"name": "Stadium Tools",
+				    "logo": "https:\/\/encrypted-tbn1.gstatic.com\/images?q=tbn:ANd9GcQINpDuuAIa5NeirMXZwW5hP9J0mv_pMoAHq_OtWwa036VUnRX5",
+				    "place": 3
+				},
+				{
+					"name": "Line-up",
+				    "logo": "",
+				    "place": 4
+				},
+				{
+					"name": "Heineken",
+				    "logo": "http:\/\/www.mytinyphone.com\/uploads\/users\/teammojo\/26127.jpg",
+				    "place": 5
+				},
+				{
+					"name": "Wizz Air",
+				    "logo": "http:\/\/szoftverhotel.hu\/images\/mobile\/logos\/wizzair.png",
+				    "place": 6
+				},
+				{
+					"name": "Donate&Help",
+				    "logo": "https:\/\/cdn0.iconfinder.com\/data\/icons\/education-vol-02-3\/48\/book-receive-donate-accept-education-help-support-128.png",
+				    "place":7
+				}
+			],
+			"live_experience": {
+				"games": [
+					{
+						"name": "Live Screen",
+						"logo": "http:\/\/thesoundfeed.com\/wp-content\/uploads\/2016\/04\/live-feed-450x350.jpg",
+					    "place": 1,
+					    "start": 2147483647,
+					    "finish":2147483647
+					},
+					{
+						"name": "Live Screen",
+					    "logo": "http:\/\/thesoundfeed.com\/wp-content\/uploads\/2016\/04\/live-feed-450x350.jpg",
+					    "place": 1,
+					    "start": 2147483647,
+					    "finish": 2147483647
+					},
+					{
+						"name": "Predict&Win",
+					    "logo": "http:\/\/www.dailyafricagist.com\/discussion\/foto\/logo_predict_win_coming_soon.png",
+					    "place": 2,
+					    "start": 2147483647,
+					    "finish":2147483647
+					},
+					{
+						"name": "Spotify",
+					    "logo": "http:\/\/routenote.com\/blog\/wp-content\/uploads\/2015\/12\/running-og.jpg",
+					    "place": 3,
+					    "start": null,
+					    "finish": null
+					},
+					{
+						"name": "Player of the match",
+					    "logo": "http:\/\/img.fifa.com\/mm\/photo\/tournament\/competition\/02\/84\/91\/82\/2849182_full-lnd.jpg",
+					    "place": 4,
+					    "start": null,
+					    "finish": null
+					}
+				],
+				"banner":
+					{
+						"name": "Test Banner",
+					    "picture": "https:\/\/ps.w.org\/custom-banners\/assets\/banner-772x250.png?rev=1441270",
+					    "link": "https:\/\/www.google.co.uk\/"
+					}
+				}
+			}
+		}
 	}
-}
+
 
 
 
@@ -105,7 +274,176 @@
 		"name": "successfull request"
 	},
 	"content": {
-		"device_token": "SDfdFDSfsdm45sF4d",
+		"device_token": "sRbsARUgZCIJfKJU",
+		"app_content": {
+			"match": {
+				"goals": {
+					"home": 0,
+				    "home_halftime": 0,
+				    "away": 0,
+				    "away_halftime": 0
+				},
+				"kickoff": "2017-03-15 13:55:00",
+				"kickoff_real": "2017-03-14 13:32:32",
+				"end_time": "0000-00-00 00:00:00",
+				"stadium": "Szusza Ferenc Stadion",
+				"competition_name": "Magyar Kupa",
+				"competition_logo": "http:\/\/www.futballista.hu\/wp-content\/uploads\/2012\/06\/c5415409822ae9bd4942ba87582fcfaf.jpg",
+				"referees": [
+					{
+						"name": "Farkas \u00c1d\u00e1m",
+						"role": "J\u00e1t\u00e9kvezet\u0151"
+					},
+					{
+						"name": "Varga Zsolt",
+					    "role":"Tartal\u00e9k j\u00e1t\u00e9kvezet\u0151"
+					},
+					"etc ..."
+				]
+			},
+			"teams": {
+				"home": {
+					"name": "\u00dajpest Fc",
+					"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/5\/4730.jpg",
+					"color": "#df45d4", 
+					"secondary_color": "#4524ab",
+					"goals": 0, 
+					"goals_halftime": 0,
+					"line_up": [
+						{
+							"role": "start", // start / bench
+							"team_id": 0,
+							"changed": 0, // 1 if the player's status has been changed (so if role is start but change is 1, then the player substituted out during the match) 
+							"name": "Balajcza Szabolcs",
+						    "number": 1,
+						    "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/803\/802103.jpg",
+						    "birthday":"1979-07-14"
+						},
+						{
+						   "role": "start",
+						   "team_id": 0, 
+						   "changed": 0,
+						   "name": "K\u00e1lnoki Kis D\u00e1vid ","number":4,
+						   "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/806\/805485.jpg",
+						   "birthday": "1991-08-06"
+						},
+						"etc ..."
+					]
+				},
+				"away": {
+					"name": "Ferencv\u00e1rosi Tc",
+					"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/4\/3360.gif",
+					"color": "",
+					"secondary_color": "",
+					"goals": 0,
+					"goals_halftime": 0,
+					"line_up": [
+						{
+							"role": "start",
+						    "team_id": 0,
+						    "changed": 0,
+						    "name": "Dibusz D\u00e9nes",
+						    "number": 90,
+						    "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/johndoe.png",
+						    "birthday": "1990-11-16"
+						},
+						{
+							"role": "start",
+						    "team_id": 0,
+						    "changed": 0,
+						    "name": "Oliver  H\u00fcsing ",
+						    "number": 5,
+						    "picture":"http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/882\/881028.jpg",
+						    "birthday":"1993-02-17"
+						},
+						"etc ..."
+					]
+				}
+			},
+			"modules": [
+				{
+					"name": "The Experience",
+				    "logo": "https:\/\/static-s.aa-cdn.net\/img\/gp\/20600004165804\/kukObyo-3k8Z3tZsgUZ2ihwqvW2T-VNu_l-gKkzrw5Zr62G9_zgE7lV6C3Air5s5Lu4=w300?v=1",
+				    "place": 1
+				},
+				{
+					"name": "E-Concession\r\n",
+				    "logo": "https:\/\/pbs.twimg.com\/profile_images\/570187971886727168\/eYcdJQr__reasonably_small.jpeg",
+				    "place": 2
+				},
+				{
+					"name": "Stadium Tools",
+				    "logo": "https:\/\/encrypted-tbn1.gstatic.com\/images?q=tbn:ANd9GcQINpDuuAIa5NeirMXZwW5hP9J0mv_pMoAHq_OtWwa036VUnRX5",
+				    "place": 3
+				},
+				{
+					"name": "Line-up",
+				    "logo": "",
+				    "place": 4
+				},
+				{
+					"name": "Heineken",
+				    "logo": "http:\/\/www.mytinyphone.com\/uploads\/users\/teammojo\/26127.jpg",
+				    "place": 5
+				},
+				{
+					"name": "Wizz Air",
+				    "logo": "http:\/\/szoftverhotel.hu\/images\/mobile\/logos\/wizzair.png",
+				    "place": 6
+				},
+				{
+					"name": "Donate&Help",
+				    "logo": "https:\/\/cdn0.iconfinder.com\/data\/icons\/education-vol-02-3\/48\/book-receive-donate-accept-education-help-support-128.png",
+				    "place":7
+				}
+			],
+			"live_experience": {
+				"games": [
+					{
+						"name": "Live Screen",
+						"logo": "http:\/\/thesoundfeed.com\/wp-content\/uploads\/2016\/04\/live-feed-450x350.jpg",
+					    "place": 1,
+					    "start": 2147483647,
+					    "finish":2147483647
+					},
+					{
+						"name": "Live Screen",
+					    "logo": "http:\/\/thesoundfeed.com\/wp-content\/uploads\/2016\/04\/live-feed-450x350.jpg",
+					    "place": 1,
+					    "start": 2147483647,
+					    "finish": 2147483647
+					},
+					{
+						"name": "Predict&Win",
+					    "logo": "http:\/\/www.dailyafricagist.com\/discussion\/foto\/logo_predict_win_coming_soon.png",
+					    "place": 2,
+					    "start": 2147483647,
+					    "finish":2147483647
+					},
+					{
+						"name": "Spotify",
+					    "logo": "http:\/\/routenote.com\/blog\/wp-content\/uploads\/2015\/12\/running-og.jpg",
+					    "place": 3,
+					    "start": null,
+					    "finish": null
+					},
+					{
+						"name": "Player of the match",
+					    "logo": "http:\/\/img.fifa.com\/mm\/photo\/tournament\/competition\/02\/84\/91\/82\/2849182_full-lnd.jpg",
+					    "place": 4,
+					    "start": null,
+					    "finish": null
+					}
+				],
+				"banner":
+					{
+						"name": "Test Banner",
+					    "picture": "https:\/\/ps.w.org\/custom-banners\/assets\/banner-772x250.png?rev=1441270",
+					    "link": "https:\/\/www.google.co.uk\/"
+					}
+				}
+			}
+		}
 	}
 }
 

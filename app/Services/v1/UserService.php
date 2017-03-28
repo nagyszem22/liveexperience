@@ -120,7 +120,7 @@ class UserService extends Service
 		/* send the response back */
 		return $this->createResponse([
 			"device_token" => $deviceToken, 
-			"init_content" => $this->appInit->initMatchDay($ticket->match_id, $input['language'])
+			"app_content" => $this->appInit->initMatchDay($ticket->match_id, $input['language'])
 		]);
 	}
 
@@ -163,7 +163,7 @@ class UserService extends Service
 		/* send the response back */
 		return $this->createResponse([
 			"device_token" => $deviceToken, 
-			"init_content" => $this->appInit->initMatchDay($ticket->match_id, $input['language'])
+			"app_content" => $this->appInit->initMatchDay($ticket->match_id, $input['language'])
 		]);
 	}
 
