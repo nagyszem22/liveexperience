@@ -1,3 +1,14 @@
+/////////////////////////////////////////////////////////////////////////////////////////////
+// HOW TO INITIALIZE THE APPLICATION?
+//--------------------------------------------------------------------------------------
+// 1.) call 'first call'
+// 2.) call 'get day' to decide which page should be loaded next
+// These two steps are necessary to be separated in order to avoid time out error caused by
+// multiple database connection handling in php/Laravel
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 //////////////////////////////////////////////////
 // FIRST CALL
 //------------------------------------------------
@@ -16,6 +27,27 @@
 		"url":"sporting",
 		"logo":"https:\/\/upload.wikimedia.org\/wikipedia\/en\/3\/3e\/Sporting_Clube_de_Portugal.png",
 		"name":"Sporting Lisboa"
+	}
+}
+
+
+
+//////////////////////////////////////////////////
+// GET DAY
+//------------------------------------------------
+// url: api/v1/get/day/{client}
+// type: GET
+// errors: 1,8
+//////////////////////////////////////////////////
+
+/* response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"match_day": 1 // 0 - non match day, 1 - match day
 	}
 }
 
@@ -435,8 +467,7 @@
 					    "finish": null
 					}
 				],
-				"banner":
-					{
+				"banner": {
 						"name": "Test Banner",
 					    "picture": "https:\/\/ps.w.org\/custom-banners\/assets\/banner-772x250.png?rev=1441270",
 					    "link": "https:\/\/www.google.co.uk\/"
@@ -444,6 +475,179 @@
 				}
 			}
 		}
+	}
+}
+
+
+
+//////////////////////////////////////////////////
+// SOFA FUN
+//------------------------------------------------
+// url: sofafun/init/{client}/{language}
+// type: GET
+// errors: 1,9
+//////////////////////////////////////////////////
+
+/* request */
+{
+	"email": "something@something.com",
+	"password": "encoded_password",
+	"password_confirmation": "encoded_password",
+	"ticket": "ticket number",
+	"device": "samsung galaxy S7, android 6.1",
+	"language": 1 // 1 - Hungarian, 2 - English
+}
+
+/* response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"match": {
+			"goals": {
+				"home": 0,
+			    "home_halftime": 0,
+			    "away": 0,
+			    "away_halftime": 0
+			},
+			"kickoff": "2017-03-15 13:55:00",
+			"kickoff_real": "2017-03-14 13:32:32",
+			"end_time": "0000-00-00 00:00:00",
+			"stadium": "Szusza Ferenc Stadion",
+			"competition_name": "Magyar Kupa",
+			"competition_logo": "http:\/\/www.futballista.hu\/wp-content\/uploads\/2012\/06\/c5415409822ae9bd4942ba87582fcfaf.jpg",
+			"referees": [
+				{
+					"name": "Farkas \u00c1d\u00e1m",
+					"role": "J\u00e1t\u00e9kvezet\u0151"
+				},
+				{
+					"name": "Varga Zsolt",
+				    "role":"Tartal\u00e9k j\u00e1t\u00e9kvezet\u0151"
+				},
+				"etc ..."
+			]
+		},
+		"teams": {
+			"home": {
+				"name": "\u00dajpest Fc",
+				"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/5\/4730.jpg",
+				"color": "#df45d4", 
+				"secondary_color": "#4524ab",
+				"goals": 0, 
+				"goals_halftime": 0,
+				"line_up": [
+					{
+						"role": "start", // start / bench
+						"team_id": 0,
+						"changed": 0, // 1 if the player's status has been changed (so if role is start but change is 1, then the player substituted out during the match) 
+						"name": "Balajcza Szabolcs",
+					    "number": 1,
+					    "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/803\/802103.jpg",
+					    "birthday":"1979-07-14"
+					},
+					{
+					   "role": "start",
+					   "team_id": 0, 
+					   "changed": 0,
+					   "name": "K\u00e1lnoki Kis D\u00e1vid ","number":4,
+					   "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/806\/805485.jpg",
+					   "birthday": "1991-08-06"
+					},
+					"etc ..."
+				]
+			},
+			"away": {
+				"name": "Ferencv\u00e1rosi Tc",
+				"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/4\/3360.gif",
+				"color": "",
+				"secondary_color": "",
+				"goals": 0,
+				"goals_halftime": 0,
+				"line_up": [
+					{
+						"role": "start",
+					    "team_id": 0,
+					    "changed": 0,
+					    "name": "Dibusz D\u00e9nes",
+					    "number": 90,
+					    "picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/johndoe.png",
+					    "birthday": "1990-11-16"
+					},
+					{
+						"role": "start",
+					    "team_id": 0,
+					    "changed": 0,
+					    "name": "Oliver  H\u00fcsing ",
+					    "number": 5,
+					    "picture":"http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/882\/881028.jpg",
+					    "birthday":"1993-02-17"
+					},
+					"etc ..."
+				]
+			}
+		},
+		"live_feed": {
+			"last_id": 4,
+			"posts": [
+				{
+					"url":"http:\/\/lorempixel.com\/400\/200\/sports",
+					"type": "picture",
+					"likes": 2,
+					"posted_at": "2017-04-04 01:32:27",
+					"hashtags":"hellyeahh,Lovayaa"
+				},
+				{
+					"url":"http:\/\/lorempixel.com\/400\/200\/sports",
+					"type":"picture",
+					"likes":4,
+					"posted_at":"2017-04-04 01:32:27",
+					"hashtags":"Dirtycat,sexintheforest,ijustgotnailed"
+				},
+				{
+					"url":"https:\/\/08-lvl3-pdl.vimeocdn.com\/01\/4289\/4\/121445495\/343291949.mp4?expires=1491277054&token=0aba99bcc49349fceee97",
+					"type":
+					"video","likes":6,"posted_at":"2017-04-04 01:39:51",
+					"hashtags":"gyurcsanytakarodj"
+				},
+				"etc"
+			]
+		},
+		"live_action": [
+			{
+				"id":150,
+				"minute": "1",
+				"expected_minute": 0,
+			 	"likes": 0,
+			 	"picture": "",
+			 	"video":"",
+			 	"text":"S\u00e1rga lapos figyelmeztet\u00e9sben r\u00e9szes\u00fclt Perovic Mihailo .",
+			 	"event_color": "f1c40f",
+			 	"event_background": "",
+			 	"event_icon": "http:\/\/vignette1.wikia.nocookie.net\/clubpenguin\/images\/8\/8f\/Penguin_Cup_2014_Emoticons_Yellow_Card.png",
+			 	"event_name":"S\u00e1rga lap","event_text":"S\u00e1rga lapos figyelmeztet\u00e9sben r\u00e9szes\u00fclt [player_0].",
+			 	"player_name":"Perovic Mihailo ",
+			 	"player_number":11
+			},
+			{
+				"id": 151,
+				"minute": "45+20",
+				"expected_minute": 45,
+				"likes": 0,
+				"picture": "",
+				"video": "",
+				"text": "Els\u0151 f\u00e9lid\u0151 v\u00e9ge","event_color":"ADFF2F",
+				"event_background": "",
+				"event_icon":"http:\/\/icons.iconarchive.com\/icons\/icons8\/windows-8\/512\/Time-Sandglass-icon.png",
+				"event_name":"Els\u0151 f\u00e9lid\u0151 v\u00e9ge",
+				"event_text":"Els\u0151 f\u00e9lid\u0151 v\u00e9ge",
+				"player_name":null,
+				"player_number":null
+			},
+			"etc"
+		]
 	}
 }
 
@@ -514,5 +718,21 @@
 	"status": {
 		"code": 7,
 		"name": "match has already ended"
+	}
+}
+
+/* 8 */
+{
+	"status": {
+		"code": 8,
+		"name": "no next match found"
+	}
+}
+
+/* 9 */
+{
+	"status": {
+		"code": 9,
+		"name": "there is no match today"
 	}
 }

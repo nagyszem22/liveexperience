@@ -23,4 +23,16 @@ class AppInitController extends Controller
     {
     	return response()->json($this->init->getClient($client));
     }
+
+    /* Get the type of the day (match/non-match day) */
+    public function getDay()
+    {
+        return response()->json($this->init->getDay());
+    }
+
+    /* First call when after clicks on sofafun button */
+    public function initSofaFun($client, $languageId)
+    {
+    	return response()->json($this->init->initSofaFun($languageId));
+    }
 }

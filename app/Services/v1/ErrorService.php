@@ -77,5 +77,25 @@ class ErrorService
             ]
         ];
     }
+
+    public function noNextMatchFound() 
+    {
+        return [
+            "status" => [
+                "code" => 8,
+                "name" => "no next match found"
+            ]
+        ];
+    }
+
+    public function noMatchToday() 
+    {
+        return [
+            "status" => [
+                "code" => 9,
+                "name" => "there is no match today"
+            ]
+        ];
+    }
     
 }
