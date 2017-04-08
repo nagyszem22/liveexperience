@@ -261,9 +261,9 @@ class ContentService
             ->leftJoin('player_to_happening as pth', 'lah.id', '=', 'pth.happening')
             ->leftJoin('players', 'pth.player', '=', 'players.id')
             ->where('lah.match_id', $matchId)
-            ->where('la.language', $languageId)
-            ->where('laen.language', $languageId)
-            ->where('laet.language', $languageId)
+            // ->where('la.language', $languageId)
+            // ->where('laen.language', $languageId)
+            // ->where('laet.language', $languageId)
             ->select(
                 'lah.id as id',
                 'lah.minute as minute',
