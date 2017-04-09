@@ -125,7 +125,7 @@ class ContentService
 
         /* modules - built in mudules */
         $output = array();
-        $output['modules'] = $modules;
+        $output = $modules;
 
         /* modules - sponsors */
         // @todo make time calculations !!!
@@ -138,18 +138,18 @@ class ContentService
 
             // set current sponsors
             if ($sponsor->active) {
-                array_push($output['modules'], $filteredSponsor);
+                array_push($output, $filteredSponsor);
                 $place++;
             } elseif ($sponsor->match == $matchId) {
                 // @todo make time calculation !!!
-                array_push($output['modules'], $filteredSponsor);
+                array_push($output, $filteredSponsor);
                 $place++;
             } elseif ($sponsor->competition == $competitionId) {
                 // @todo make time calculation !!!
-                array_push($outputoutput['modules'], $filteredSponsor);
+                array_push($outputoutput, $filteredSponsor);
                 $place++;
             } elseif ($sponsor->basic) {
-                array_push($output['modules'], $filteredSponsor);
+                array_push($output, $filteredSponsor);
                 $place++;
             }
         }
