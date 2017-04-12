@@ -29,5 +29,5 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
     // Route::get('/v1/user/forgotpassword/{client}', ['uses' => 'v1\UserController@forgotPassword']);
 
     /* app sofa fun routes */
-    Route::get('sofafun/init/{client}/{languageId}', ['uses' => 'v1\AppInitController@initSofaFun']);
+    Route::get('sofafan/init/{client}/{languageId}', ['uses' => 'v1\AppInitController@initSofaFan']);
 });

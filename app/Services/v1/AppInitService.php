@@ -135,7 +135,7 @@ class AppInitService extends Service
 
 
 
-    public function initSofaFun($languageId)
+    public function initSofaFan($languageId)
     {
         /* get today's match */
         $today = strtotime('00:00:00');

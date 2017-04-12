@@ -242,8 +242,8 @@ class ContentService
 
         $output = array('last_id' => last($posts)->id, 'posts' => []);
         foreach ($posts as $post) {
-            $post = collect($post);
-            $post->forget('id');
+            // $post = collect($post);
+            // $post->forget('id');
             $output['posts'][] = $post;
         }
 
