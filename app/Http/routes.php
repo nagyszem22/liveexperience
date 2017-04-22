@@ -16,6 +16,11 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
+
+    ///////////////////////////////////////////////////////////
+    // @todo - create a new route+service group called pages
+    // to refresh app pages
+    ///////////////////////////////////////////////////////////
 	
 	/* app init routes */
     Route::get('init/{client}', ['uses' => 'v1\AppInitController@init']);
@@ -28,6 +33,12 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
     // Route::get('/v1/user/logout/{client}', ['uses' => 'v1\UserController@login']);
     // Route::get('/v1/user/forgotpassword/{client}', ['uses' => 'v1\UserController@forgotPassword']);
 
-    /* app sofa fun routes */
+    /* app sofa fan routes */
     Route::get('sofafan/init/{client}/{languageId}', ['uses' => 'v1\AppInitController@initSofaFan']);
+
+    /* app non-match day routes */
+    Route::get('nonmatchday/init/{client}/{languageId}', ['uses' => 'v1\AppInitController@initNonMatchDay']);
+    // Route::get('nonmatchday/lineup/{client}/{languageId}/{teamId}', ['uses' => '...']);
+    // Route::get('nonmatchday/match/{client}/{languageId}/{teamId}', ['uses' => '...']);
+    Route::post('nonmatchday/contactus/{client}', ['uses' => 'v1\PutDataController@contactus']);
 });

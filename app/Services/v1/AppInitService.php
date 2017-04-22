@@ -135,6 +135,7 @@ class AppInitService extends Service
 
 
 
+    /* Get application details to setup sofa fun part */
     public function initSofaFan($languageId)
     {
         /* get today's match */
@@ -208,15 +209,95 @@ class AppInitService extends Service
         /* live posts from users */
         $content['live_feed'] = $live_feed;
 
-        
+        /* live from the team */
         $content['live_action'] = $live_action;
 
         return $this->createResponse($content);
     }
 
-    public function initNonMatchDay()
+
+
+    public function initNonMatchDay($languageId)
     {
-        return $this->createResponse();
+        /* get today's match */
+        $today = strtotime('00:00:00');
+        $today = date('Y-m-d H:i:s', $today);
+        $match = DB::table('matches')
+            ->where('kickoff', '>', $today)
+            ->first();
+
+        /* initialize content */
+        $content = array();
+
+        /* add match deatils if they are exist */
+        if ($match) {
+
+            /* next match details */
+            $matchId = $match->id;
+
+            /* get current match data */
+            $match = $this->content->match($matchId, $languageId);
+
+            /* get referees of the current match */
+            $referees = $this->content->referees($matchId, $languageId);
+
+            /* match details */
+            $content['next_match']['exists'] = 1;
+            $content['next_match']['kickoff'] = $match->kickoff;
+            $content['next_match']['end_time'] = $match->end_time;
+            $content['next_match']['stadium'] = $match->stadium_name;
+            $content['next_match']['competition_name'] = $match->competition_name;
+            $content['next_match']['competition_logo'] = $match->competition_logo;
+            $content['next_match']['referees'] = $referees;
+
+            /* team details */
+            $content['next_match']['teams']['exists'] = 1;
+            $content['next_match']['teams']['home']['name'] = $match->home_team_name;
+            $content['next_match']['teams']['home']['logo'] = $match->home_team_logo;
+            $content['next_match']['teams']['home']['color'] = $match->home_team_color;
+            $content['next_match']['teams']['home']['secondary_color'] = $match->home_team_secondary_color;
+
+            $content['next_match']['teams']['away']['name'] = $match->away_team_name;
+            $content['next_match']['teams']['away']['logo'] = $match->away_team_logo;
+            $content['next_match']['teams']['away']['color'] = $match->away_team_color;
+            $content['next_match']['teams']['away']['secondary_color'] = $match->away_team_secondary_color;
+
+        } else {
+
+            /* if there is no next match */
+            $content['next_match']['exists'] = 0;
+        }
+
+        /* add client's articles */
+        $content['articles'] = $this->content->articles($languageId);
+
+        /* add client's team details */
+        $team = $this->content->team(0);
+        $content['club_zone']['team'] = $team;
+
+        /* add client's team players */
+        $content['club_zone']['players'] = $this->content->players($team->id);
+
+        /* add client's team staff */
+        $content['club_zone']['staff'] = $this->content->staff($languageId);
+
+        /* add client's team front office */
+        $content['club_zone']['front_office'] = $this->content->front_office($languageId);
+
+        /* add client's basics */
+        $content['club_zone']['basics'] = $this->content->basics($languageId);
+
+        /* add client's talents */
+        $content['club_zone']['talents'] = $this->content->talents($languageId);
+
+        /* add client's team matches */
+        $content['club_zone']['matches'] = $this->content->matches($languageId);
+
+        /* add client's tables */
+        $content['club_zone']['competitions'] = $this->content->competitions($languageId);
+        $content['club_zone']['standings'] = $this->content->standings();
+
+        return $this->createResponse($content);
     }
 
 }

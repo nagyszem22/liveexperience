@@ -161,6 +161,7 @@ return [
         App\Providers\v1\UserServiceProvider::class,
         App\Providers\v1\ErrorServiceProvider::class,
         App\Providers\v1\ContentServiceProvider::class,
+        App\Providers\v1\PutServiceProvider::class,
 
     ],
 

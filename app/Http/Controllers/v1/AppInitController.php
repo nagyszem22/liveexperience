@@ -30,9 +30,15 @@ class AppInitController extends Controller
         return response()->json($this->init->getDay());
     }
 
-    /* First call when after clicks on sofafan button */
+    /* First call when a user clicks on the sofafan button */
     public function initSofaFan($client, $languageId)
     {
     	return response()->json($this->init->initSofaFan($languageId));
+    }
+
+    /* First call when there is no match on the current day */
+    public function initNonMatchDay($client, $languageId)
+    {
+        return response()->json($this->init->initNonMatchDay($languageId));
     }
 }
