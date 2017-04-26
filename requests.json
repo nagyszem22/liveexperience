@@ -488,6 +488,7 @@
 // errors: 1,9
 //////////////////////////////////////////////////
 
+/* response */
 {
 	"status": {
 		"code": 0,
@@ -641,6 +642,239 @@
 			},
 			"etc"
 		]
+	}
+}
+
+
+
+
+//////////////////////////////////////////////////
+// NON MATCH DAY
+//------------------------------------------------
+// url: nonmatchday/init/{client}/{language}
+// type: GET
+// errors: 1,8
+//////////////////////////////////////////////////
+
+/* response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"next_match": {
+			"exists": 1, // 0 if there is no upcoming match
+			"kickoff": "2017-04-28 11:55:00",
+			"end_time": "0000-00-00 00:00:00",
+			"stadium": "Szusza Ferenc Stadion",
+			"competition_name": "Magyar Kupa",
+			"competition_logo":"http:\/\/www.futballista.hu\/wp-content\/uploads\/2012\/06\/c5415409822ae9bd4942ba87582fcfaf.jpg",
+			"referees": [
+				{
+					"name": "Farkas \u00c1d\u00e1m",
+					"role": "J\u00e1t\u00e9kvezet\u0151"
+				},
+				{
+					"name": "Varga Zsolt",
+					"role":"Tartal\u00e9k j\u00e1t\u00e9kvezet\u0151"
+				},
+				"etc ..."
+			],
+			"teams": {
+				"exists": 1, // 0 if there are no given teams
+				"home": {
+					"name": "\u00dajpest Fc",
+					"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/5\/4730.jpg",
+					"color": "",
+					"secondary_color":""
+				},
+				"away": {
+					"name": "Ferencv\u00e1rosi Tc",
+					"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/4\/3360.gif",
+					"color": "",
+					"secondary_color": ""
+				}
+			}
+		},
+		"articles": [
+			{
+				"image": "\/articles\/asd.jpg",
+				"title": "OTP Bank Liga NB1",
+				"text": "Sed ut perspiciatis unde omnis ..."
+			},
+			{
+				"image": "\/articles\/test.jpg",
+				"title": "Magyar Kupa",
+				"text": "Sed ut perspiciatis unde ..."
+			}
+		],
+		"club_zone": {
+			"team": {
+				"id":10,
+				"name": "\u00dajpest Fc",
+				"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/5\/4730.jpg",
+				"color": "",
+				"secondary_color": ""
+			},
+			"players": [
+				{
+					"name": "Andric Nemanja ",
+					"number": 19,
+					"picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/johndoe.png",
+					"birthday": "1987-06-13"
+				},
+				{
+					"name": "Angelov  Iktor",
+					"number": 11,
+					"picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/865\/864183.jpg",
+					"birthday": "1994-03-27"
+				},
+				"etc ..."
+			],
+			"staff": [
+				{
+					"name": "Teszt Elek",
+					"picture": "\/staff\/teszt_elek.jpg",
+					"title": "Szusza Ferenc Stadion",
+					"description": "Groupama Arena"
+				},
+				{
+					"name": "Kiss Istv\u00e1n",
+					"picture": "\/staff\/kiss_istvan.jpg",
+					"title":"OTP Bank Liga NB1",
+					"description": "\u00daj Hidegkuti N\u00e1ndor Stadion"
+				},
+				"etc ..."
+			],
+			"front_office": [
+				{
+					"name": "Kiss P\u00e9ter",
+					"picture": "\/office\/kisspeter.jpg",
+					"title": "Szusza Ferenc Stadion",
+					"description": "Bozsik Stadion"
+				},
+				{
+					"name": "Nagy \u00c1lmos",
+					"picture": "\/office\/nagy_almos.jpg",
+					"title": "Groupama Arena",
+					"description": "Bozsik Stadion"
+				},
+				"etc ..."
+			],
+			"basics": [
+				{
+					"title": "Groupama Arena",
+					"description": "Labdar\u00fag\u00e1s",
+					"picture": "http:\/\/i2.cdn.cnn.com\/cnnnext\/dam\/assets\/161201161116-83-year-in-pictures-2016-restricted-super-169.jpg"
+				},
+				{
+					"title": "Bar\u00e1ts\u00e1gos m\u00e9rk\u0151z\u00e9s",
+					"description": "Magyar Kupa",
+					"picture": "http:\/\/i.telegraph.co.uk\/multimedia\/archive\/03519\/potd-squirrel_3519920k.jpg"
+				},
+				"etc ..."
+			],
+			"talents": [
+				{
+					"name": "Kiss Istv\u00e1n",
+					"background": "e2e2e2",
+					"profile_picture": "talents\/kiss_istvan.jpg",
+					"big_picture": "talents\/kiss_istvan_nagy.jpg",
+					"description": "Piros lap"
+				},
+				"etc ..."
+			],
+			"matches": [
+				{
+					"kickoff": "2017-03-24 17:00:00",
+					"kickoff_real": "0000-00-00 00:00:00",
+					"gate_opening": "0000-00-00 00:00:00",
+					"home_goals": 0,
+					"home_halftime_goals": 0,
+					"away_halftime_goals": 0,
+					"away_goals": 0,
+					"end_time": "0000-00-00 00:00:00",
+					"competition_logo": "http:\/\/www.mindenamisport.com\/pic\/hir\/otp-bank-liga-logo.png_685x386_2",
+					"stadium_name": "Szusza Ferenc Stadion",
+					"competition_name": "OTP Bank Liga NB1",
+					"competition_id": 1,
+					"home_team_id": 10,
+					"home_team_name": "\u00dajpest Fc",
+					"home_team_logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/5\/4730.jpg",
+					"home_team_color": "",
+					"home_team_secondary_color": "",
+					"away_team_id": 4,
+					"away_team_name": "Ferencv\u00e1rosi Tc",
+					"away_team_logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/4\/3360.gif",
+					"away_team_color": "",
+					"away_team_secondary_color":""
+				},
+				"etc ..."
+			],
+			"competitions": [
+				{
+					"name": "OTP Bank Liga NB1",
+					"logo": "http:\/\/www.mindenamisport.com\/pic\/hir\/otp-bank-liga-logo.png_685x386_2"
+				},
+				{
+					"name": "Magyar Kupa",
+					"logo": "http:\/\/www.futballista.hu\/wp-content\/uploads\/2012\/06\/c5415409822ae9bd4942ba87582fcfaf.jpg"
+				},
+				"etc ..."
+			],
+			"standings":[
+				{
+					"competition_id": 1,
+					"id": 12,
+					"sort": 1,
+					"points": 45,
+					"name": "Videoton Fc",
+					"logo": "http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/5\/4480.png",
+					"color":"",
+					"secondary_color":""
+				},
+				{
+					"competition_id": 1,
+					"id": 1,
+					"sort": 2,
+					"points": 44,
+					"name":"Budapest Honv\u00e9d",
+					"logo":"http:\/\/adatbank.mlsz.hu\/img\/EgyesuletLogo\/Logo\/4\/3420.gif",
+					"color":"",
+					"secondary_color":""
+				},
+				"etc ..."
+			]
+		}
+	}
+}
+
+
+
+//////////////////////////////////////////////////
+// CONTACT US
+//------------------------------------------------
+// url: nonmatchday/init/{client}/{language}
+// type: POST
+// errors: 1
+//////////////////////////////////////////////////
+
+/* request */
+{
+	"name": "Kovács Béla",
+	"email": "kovacsbela@gmail.com",
+	"text": "This is an email from Kovács Béla."
+}
+
+/* response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"answer": "Email has been sent successfully."
 	}
 }
 

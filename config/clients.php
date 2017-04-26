@@ -4,10 +4,10 @@ return [
 
 	'sporting' => [
         'driver'    => 'mysql',
-        'host'      => 'localhost',
+        'host'      => 'liveexperience-database-cluster.cluster-cspxqy9wy5je.eu-west-2.rds.amazonaws.com',
         'database'  => 'experience',
-        'username'  => 'api_user',
-        'password'  => 'O0VFFxjXBn4yrFQa',
+        'username'  => 'liveExperience',
+        'password'  => 'qxJeUUuSDQXn78DH',
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
@@ -17,10 +17,10 @@ return [
 
     'vasas' => [
         'driver'    => 'mysql',
-        'host'      => 'localhost',
+        'host'      => 'liveexperience-database-cluster.cluster-cspxqy9wy5je.eu-west-2.rds.amazonaws.com',
         'database'  => 'experience',
-        'username'  => 'api_user',
-        'password'  => 'O0VFFxjXBn4yrFQa',
+        'username'  => 'liveExperience',
+        'password'  => 'qxJeUUuSDQXn78DH',
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
@@ -30,10 +30,10 @@ return [
 
     'csakfoci' => [
         'driver'    => 'mysql',
-        'host'      => 'localhost',
+        'host'      => 'liveexperience-database-cluster.cluster-cspxqy9wy5je.eu-west-2.rds.amazonaws.com',
         'database'  => 'experience',
-        'username'  => 'api_user',
-        'password'  => 'O0VFFxjXBn4yrFQa',
+        'username'  => 'liveExperience',
+        'password'  => 'qxJeUUuSDQXn78DH',
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',

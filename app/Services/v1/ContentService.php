@@ -487,9 +487,10 @@ class ContentService
     {
         $talents = DB::table('talents')
             ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'talents.description_association_id')
+            ->leftJoin('language_associations as name', 'name.language_association_id', '=', 'talents.name_association_id')
             ->where('description.language', $languageId)
             ->select(
-                'talents.name as name',
+                'name.text as name',
                 'talents.background as background',
                 'talents.profile_picture as profile_picture',
                 'talents.big_picture as big_picture',
