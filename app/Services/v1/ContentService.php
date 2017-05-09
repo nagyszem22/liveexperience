@@ -226,7 +226,7 @@ class ContentService
     {
         $posts = DB::table('livescreen as ls')
             ->leftJoin('livescreen_to_hashtag as lth', 'lth.livescreen', '=', 'ls.id')
-            ->join('livescreen_hashtags as lh', 'lh.id', '=', 'lth.hashtag')
+            ->leftJoin('livescreen_hashtags as lh', 'lh.id', '=', 'lth.hashtag')
             // ->join('users', 'users.id', '=', 'ls.userid')
             ->where('ls.matchid', '=', $matchId)
             ->where('ls.id', '>', $lastId)
@@ -239,6 +239,11 @@ class ContentService
                 'ls.created_at as posted_at',
                 DB::raw('group_concat(lh.hashtag) as hashtags')
             )->get();
+
+        /* if there are no posts yet */
+        if ($posts == []) {
+            return array('last_id' => 0, 'posts' => []);
+        }
 
         $output = array('last_id' => last($posts)->id, 'posts' => []);
         foreach ($posts as $post) {
@@ -332,12 +337,13 @@ class ContentService
     public function staff($languageId)
     {
         $staff = DB::table('staff')
+            ->leftJoin('language_associations as name', 'name.language_association_id', '=', 'staff.name_association_id')
             ->leftJoin('language_associations as title', 'title.language_association_id', '=', 'staff.title_association_id')
-            ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'staff.description')
+            ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'staff.description_association_id')
             ->where('title.language', $languageId)
             ->where('description.language', $languageId)
             ->select(
-                'staff.name as name', 
+                'name.text as name', 
                 'staff.picture as picture', 
                 'title.text as title', 
                 'description.text as description'
@@ -369,12 +375,13 @@ class ContentService
     public function front_office($languageId)
     {
         $front_office = DB::table('front_office')
+             ->leftJoin('language_associations as name', 'name.language_association_id', '=', 'front_office.name_association_id')
             ->leftJoin('language_associations as title', 'title.language_association_id', '=', 'front_office.title_association_id')
             ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'front_office.description_association_id')
             ->where('title.language', $languageId)
             ->where('description.language', $languageId)
             ->select(
-                'front_office.name as name', 
+                'name.text as name', 
                 'front_office.picture as picture', 
                 'title.text as title', 
                 'description.text as description'
@@ -498,6 +505,103 @@ class ContentService
             )->get();
 
         return $talents;
+    }
+
+
+
+    /* get the message the team details */
+    public function message_the_team($languageId)
+    {
+        $message_the_team = DB::table('message_the_team')
+            ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'message_the_team.description_association_id')
+            ->where('description.language', $languageId)
+            ->select(
+                'message_the_team.background as background',
+                'description.text as description'
+            )->first();
+
+        return $message_the_team;
+    }
+
+
+
+    /*  */
+    public function ask_the_fans($languageId, $matchId)
+    {
+        $ask_the_fans = DB::table('ask_the_fans_question as atf')
+            ->join('ask_the_fans_question_to_match as match', 'match.question', '=', 'atf.id')
+            ->leftJoin('language_associations as question', 'question.language_association_id', '=', 'atf.question_association_id')
+            ->leftJoin('ask_the_fans_answer as answers1', 'answers1.id', '=', 'atf.answer1')
+            ->leftJoin('ask_the_fans_answer as answers2', 'answers2.id', '=', 'atf.answer2')
+            ->leftJoin('language_associations as answer1', 'answer1.language_association_id', '=', 'answers1.answer_association_id')
+            ->leftJoin('language_associations as answer2', 'answer2.language_association_id', '=', 'answers2.answer_association_id')
+            ->leftJoin('language_associations as response1', 'response1.language_association_id', '=', 'answers1.response_association_id')
+            ->leftJoin('language_associations as response2', 'response2.language_association_id', '=', 'answers2.response_association_id')
+            ->where('question.language', $languageId)
+            ->where('answer1.language', $languageId)
+            ->where('answer2.language', $languageId)
+            ->where('response1.language', $languageId)
+            ->where('response2.language', $languageId)
+            ->where('atf.active', 1)
+            ->where('match.match_id', $matchId)
+            ->select(
+                'atf.id as question_id',
+                'question.text as question',
+                'atf.picture as picture',
+                'atf.answer_time as time',
+                'answers1.id as answer1_id',
+                'answer1.text as answer1',
+                'answers2.id as answer2_id',
+                'answer2.text as answer2',
+                'response1.text as response1',
+                'response2.text as response2'
+            )->get();
+
+        return $ask_the_fans;
+    }
+
+
+
+    /* get predict and win questions */
+    public function predict_and_win($languageId, $matchId)
+    {
+        $predict_and_win = DB::table('predict_and_win_questions as pan')
+            ->leftJoin('language_associations as question', 'question.language_association_id', '=', 'pan.question_association_id')
+            ->leftJoin('predict_and_win_answer_to_question as atq', 'atq.question', '=', 'pan.id')
+            ->leftJoin('predict_and_win_anwers as pawa', 'pawa.id', '=', 'atq.answer')
+            ->leftJoin('language_associations as answer', 'answer.language_association_id', '=', 'pawa.answer_association_id')
+            ->where('question.language', $languageId)
+            ->where('answer.language', $languageId)
+            ->where('pan.match_id', $matchId)
+            ->groupBy('pan.id')
+            ->orderBy('pan.ordering')
+            ->select(
+                'pan.id as question_id',
+                'pan.ordering as order',
+                'question.text as question',
+                DB::raw('group_concat(pawa.id) as answer_ids'),
+                DB::raw('group_concat(answer.text) as answers')
+            )->get();
+
+        $questions = array();
+        $key = 0;
+        foreach ($predict_and_win as $question) {
+           $questions[$key]['question_id'] = $question->question_id;
+           $questions[$key]['order'] = $question->order;
+           $questions[$key]['question'] = $question->question;
+           
+           $answer_ids = explode(',', $question->answer_ids);
+           $answers = explode(',', $question->answers);
+           $answerKey = 0;
+           foreach ($answers as $answer) {
+               $questions[$key]['answers'][$answerKey]['answer_id'] = $answer_ids[$answerKey];
+               $questions[$key]['answers'][$answerKey]['answer'] = $answer;
+               $answerKey++;
+           }
+           $key++;
+        }
+
+        return $questions;
     }
 
 }

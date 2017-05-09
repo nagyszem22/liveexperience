@@ -87,6 +87,9 @@ class AppInitService extends Service
         /* get live posts from users */
         $live_feed = $this->content->live_feed($matchId, 0);
 
+        /* get basic settings of message the team */
+        $message_the_team = $this->content->message_the_team($languageId);
+
         /* initialize content */
         $content = array();
 
@@ -129,6 +132,9 @@ class AppInitService extends Service
         /* live posts from users */
         $content['live_feed'] = $live_feed;
 
+        /* message the team main settings */
+        $content['message_the_team'] = $message_the_team;
+
         /* return content */
 		return $content;
 	}
@@ -144,9 +150,9 @@ class AppInitService extends Service
         $today = date('Y-m-d H:i:s', $today);
         $tomorrow = date('Y-m-d H:i:s', $tomorrow);
         $match = DB::table('matches')
-            ->where('kickoff', '>', $today)
-            ->where('kickoff', '<', $tomorrow)
-            ->first();
+            //->where('kickoff', '>', $today)
+            // ->where('kickoff', '<', $tomorrow)
+            ->where('id', 3)->first();
 
         /* return if there is no match today */
         if (!$match) {
@@ -229,7 +235,7 @@ class AppInitService extends Service
         /* initialize content */
         $content = array();
 
-        /* add match deatils if they are exist */
+        /* add match deatils if they exist */
         if ($match) {
 
             /* next match details */

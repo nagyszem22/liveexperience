@@ -97,5 +97,15 @@ class ErrorService
             ]
         ];
     }
+
+    public function deviceDoesNotExist() 
+    {
+        return [
+            "status" => [
+                "code" => 10,
+                "name" => "device does not exist"
+            ]
+        ];
+    }
     
 }

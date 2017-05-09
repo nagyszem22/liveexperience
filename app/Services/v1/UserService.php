@@ -105,7 +105,7 @@ class UserService extends Service
 
 		/* @todo: convert it to the local match time */
 		$now = strtotime(date("Y-m-d H:i:s"));
-		$now = 2147483647;
+		// $now = 2147483647;
 		if ($now < $ticket->start) {
 			return $this->error->matchHasNotStarted();
 		}

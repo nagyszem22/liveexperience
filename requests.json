@@ -621,7 +621,8 @@
 			 	"event_color": "f1c40f",
 			 	"event_background": "",
 			 	"event_icon": "http:\/\/vignette1.wikia.nocookie.net\/clubpenguin\/images\/8\/8f\/Penguin_Cup_2014_Emoticons_Yellow_Card.png",
-			 	"event_name":"S\u00e1rga lap","event_text":"S\u00e1rga lapos figyelmeztet\u00e9sben r\u00e9szes\u00fclt [player_0].",
+			 	"event_name":"S\u00e1rga lap",
+			 	"event_text":"S\u00e1rga lapos figyelmeztet\u00e9sben r\u00e9szes\u00fclt [player_0].",
 			 	"player_name":"Perovic Mihailo ",
 			 	"player_number":11
 			},
@@ -632,7 +633,8 @@
 				"likes": 0,
 				"picture": "",
 				"video": "",
-				"text": "Els\u0151 f\u00e9lid\u0151 v\u00e9ge","event_color":"ADFF2F",
+				"text": "Els\u0151 f\u00e9lid\u0151 v\u00e9ge",
+				"event_color":"ADFF2F",
 				"event_background": "",
 				"event_icon":"http:\/\/icons.iconarchive.com\/icons\/icons8\/windows-8\/512\/Time-Sandglass-icon.png",
 				"event_name":"Els\u0151 f\u00e9lid\u0151 v\u00e9ge",
@@ -857,7 +859,7 @@
 //------------------------------------------------
 // url: nonmatchday/init/{client}/{language}
 // type: POST
-// errors: 1
+// errors: 1,2
 //////////////////////////////////////////////////
 
 /* request */

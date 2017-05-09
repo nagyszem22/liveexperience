@@ -7,53 +7,28 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Services\v1\PutService;
+use App\Services\v1\PagesService;
 use App\Services\v1\ErrorService;
 
 use Validator;
 
-class PutDataController extends Controller
+class PagesController extends Controller
 {
-	/* Define service provider(s) */
-	protected $put;
+    /* Define service provider(s) */
+	protected $page;
 	protected $error;
-	public function __construct(PutService $put, ErrorService $error)
+	public function __construct(PagesService $page, ErrorService $error)
 	{
-		$this->put = $put;
+		$this->page = $page;
 		$this->error = $error;
 	}
 
 
 
-    public function contactus(Request $request)
-    {
-    	/* validate request */
-        $validator = Validator::make($request->all(), [
-        	'name'  => 'required',
-            'email' => 'required|email',
-            'text'  => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(
-                $this->error->formValidationFailed($validator->messages()),
-            200);
-        }
-
-        /* call contact us method */
-        $answer = $this->put->contactus($request->input());
-
-        /* return answer */
-        return response()->json($answer);
-    }
-
-
-
-    public function messageTheTeam(Request $request)
+	public function messageTheTeam(Request $request)
     {
         /* validate request */
         $validator = Validator::make($request->all(), [
-            'message'  => 'required',
             'device_token' => 'required'
         ]);
 
@@ -64,7 +39,7 @@ class PutDataController extends Controller
         }
 
         /* call message the team method */
-        $answer = $this->put->messageTheTeam($request->input());
+        $answer = $this->page->messageTheTeam($request->input());
 
         /* return answer */
         return response()->json($answer);
@@ -76,8 +51,6 @@ class PutDataController extends Controller
     {
         /* validate request */
         $validator = Validator::make($request->all(), [
-            'question_id'  => 'required|numeric|exists:ask_the_fans_question,id',
-            'answer_id' => 'required|numeric|exists:ask_the_fans_answer,id',
             'device_token' => 'required'
         ]);
 
@@ -88,7 +61,7 @@ class PutDataController extends Controller
         }
 
         /* call message the team method */
-        $answer = $this->put->askTheFans($request->input());
+        $answer = $this->page->askTheFans($request->input());
 
         /* return answer */
         return response()->json($answer);
@@ -100,8 +73,6 @@ class PutDataController extends Controller
     {
         /* validate request */
         $validator = Validator::make($request->all(), [
-            'question_id'  => 'required|numeric|exists:predict_and_win_questions,id',
-            'answer_id' => 'required|numeric|exists:predict_and_win_anwers,id',
             'device_token' => 'required'
         ]);
 
@@ -111,8 +82,8 @@ class PutDataController extends Controller
             200);
         }
 
-        /* call message the team method */
-        $answer = $this->put->predictAndWin($request->input());
+        /* call predict and win method */
+        $answer = $this->page->predictAndWin($request->input());
 
         /* return answer */
         return response()->json($answer);
