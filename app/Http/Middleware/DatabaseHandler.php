@@ -22,14 +22,18 @@ class DatabaseHandler
      */
     public function handle($request, Closure $next)
     {
-        $client = $_SERVER['HTTP_CLIENT'];
-        if (config('clients.'.$client) == null) {
-            return response()->json(
-                $this->error->clientDoesNotExist(),
-            200); 
-        }
+        $url = explode('/', url()->current());
+        array_pop($url);
+        if (last($url) != 'v1') {
+            $client = $_SERVER['HTTP_CLIENT'];
+            if (config('clients.'.$client) == null) {
+                return response()->json(
+                    $this->error->clientDoesNotExist(),
+                200); 
+            }
 
-        Config::set('database.connections.mysql', config('clients.'.$client));
+            Config::set('database.connections.mysql', config('clients.'.$client));
+        }
 
         // continue request
         return $next($request);
