@@ -55,7 +55,7 @@ class AppInitService extends Service
         }
 
         /* if there is no saved token then create one */
-        if ($_SERVER['HTTP_TOKEN']) {
+        if ($_SERVER['HTTP_TOKEN'] == 0) {
             $deviceToken = str_random(16);
             DB::table('device_tokens')->insert([
                 'token' => $deviceToken, 
