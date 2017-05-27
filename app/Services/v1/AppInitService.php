@@ -53,9 +53,9 @@ class AppInitService extends Service
         if (!$match) {
             return $this->error->noNextMatchFound();
         }
-        
+
         /* if there is no saved token then create one */
-        if ($_SERVER['HTTP_TOKEN'] == '') {
+        if ($_SERVER['HTTP_TOKEN']) {
             $deviceToken = str_random(16);
             DB::table('device_tokens')->insert([
                 'token' => $deviceToken, 
