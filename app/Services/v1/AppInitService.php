@@ -39,7 +39,7 @@ class AppInitService extends Service
 
     
     /* get the type of the current day */    
-    public function getDay() 
+    public function getDay($input) 
     {
         /* get next match */
         $today = strtotime('00:00:00');
@@ -53,10 +53,27 @@ class AppInitService extends Service
         if (!$match) {
             return $this->error->noNextMatchFound();
         }
+        
+        /* if there is no saved token then create one */
+        if ($_SERVER['HTTP_TOKEN'] == '') {
+            $deviceToken = str_random(16);
+            DB::table('device_tokens')->insert([
+                'token' => $deviceToken, 
+                'user_id' => 0,
+                'match_id' => 0,
+                'language_id' => $input['language'],
+                'device' => $input['device'],
+                'expires' => 0,
+                'created_at' => date("Y-m-d H:i:s")
+            ]);
+        } else {
+            $deviceToken = $_SERVER['HTTP_TOKEN'];
+        }
 
         /* create output */
         $output = array();
         $output['match_day'] = 0;
+        $output['device_token'] = $deviceToken;
         if ($match->kickoff < $tomorrow) {
             $output['match_day'] = 1;
         }
@@ -150,9 +167,10 @@ class AppInitService extends Service
         $today = date('Y-m-d H:i:s', $today);
         $tomorrow = date('Y-m-d H:i:s', $tomorrow);
         $match = DB::table('matches')
+            /* uncomment the lines below and delete the third where clause in production */
             //->where('kickoff', '>', $today)
             // ->where('kickoff', '<', $tomorrow)
-            ->where('id', 3)->first();
+            ->where('id', 2)->first();
 
         /* return if there is no match today */
         if (!$match) {
@@ -161,7 +179,6 @@ class AppInitService extends Service
 
         /* set match id */
         $matchId = $match->id;
-
 
         /* get current match data */
         $match = $this->content->match($matchId, $languageId);

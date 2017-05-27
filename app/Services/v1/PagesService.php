@@ -24,33 +24,17 @@ class PagesService extends Service
 
 
     /* message the team details */
-    public function messageTheTeam($input)
+    public function messageTheTeam($device)
     {
-        /* get the device of the current user and validate it */
-        if (!$device = $this->device($input['device_token'])) {
-            return $this->error->deviceDoesNotExist();
-        }
-
-        /* get message the team details */
-        $content = $this->content->message_the_team($device->language_id);
-
-        return $this->createResponse($content);
+        return $this->createResponse($this->content->message_the_team($device->language_id));
     }
 
 
 
     /* ask the fans details */
-    public function askTheFans($input)
+    public function askTheFans($device)
     {
-        /* get the device of the current user and validate it */
-        if (!$device = $this->device($input['device_token'])) {
-            return $this->error->deviceDoesNotExist();
-        }
-
-        /* get ask the fans details */
-        $content = $this->content->ask_the_fans($device->language_id, $device->match_id);
-
-        return $this->createResponse($content);
+        return $this->createResponse($this->content->ask_the_fans($device->language_id, $device->match_id));
     }
 
 

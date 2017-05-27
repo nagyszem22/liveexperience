@@ -53,8 +53,7 @@ class PutDataController extends Controller
     {
         /* validate request */
         $validator = Validator::make($request->all(), [
-            'message'  => 'required',
-            'device_token' => 'required'
+            'message'  => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -63,11 +62,8 @@ class PutDataController extends Controller
             200);
         }
 
-        /* call message the team method */
-        $answer = $this->put->messageTheTeam($request->input());
-
         /* return answer */
-        return response()->json($answer);
+        return response()->json($this->put->messageTheTeam($request));
     }
 
 

@@ -27,44 +27,16 @@ class PagesController extends Controller
 
 	public function messageTheTeam(Request $request)
     {
-        /* validate request */
-        $validator = Validator::make($request->all(), [
-            'device_token' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(
-                $this->error->formValidationFailed($validator->messages()),
-            200);
-        }
-
-        /* call message the team method */
-        $answer = $this->page->messageTheTeam($request->input());
-
         /* return answer */
-        return response()->json($answer);
+        return response()->json($this->page->messageTheTeam($request->attributes->get('device')));
     }
 
 
 
     public function askTheFans(Request $request)
-    {
-        /* validate request */
-        $validator = Validator::make($request->all(), [
-            'device_token' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(
-                $this->error->formValidationFailed($validator->messages()),
-            200);
-        }
-
-        /* call message the team method */
-        $answer = $this->page->askTheFans($request->input());
-
+    {   
         /* return answer */
-        return response()->json($answer);
+        return response()->json($this->page->askTheFans($request->attributes->get('device')));
     }
 
 

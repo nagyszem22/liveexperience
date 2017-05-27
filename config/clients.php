@@ -5,7 +5,7 @@ return [
 	'sporting' => [
         'driver'    => 'mysql',
         'host'      => 'liveexperience-database-cluster.cluster-cspxqy9wy5je.eu-west-2.rds.amazonaws.com',
-        'database'  => 'experience',
+        'database'  => 'experience_new',
         'username'  => 'liveExperience',
         'password'  => 'qxJeUUuSDQXn78DH',
         'charset'   => 'utf8',
@@ -18,7 +18,7 @@ return [
     'vasas' => [
         'driver'    => 'mysql',
         'host'      => 'liveexperience-database-cluster.cluster-cspxqy9wy5je.eu-west-2.rds.amazonaws.com',
-        'database'  => 'experience',
+        'database'  => 'experience_new',
         'username'  => 'liveExperience',
         'password'  => 'qxJeUUuSDQXn78DH',
         'charset'   => 'utf8',
@@ -31,7 +31,7 @@ return [
     'csakfoci' => [
         'driver'    => 'mysql',
         'host'      => 'liveexperience-database-cluster.cluster-cspxqy9wy5je.eu-west-2.rds.amazonaws.com',
-        'database'  => 'experience',
+        'database'  => 'experience_new',
         'username'  => 'liveExperience',
         'password'  => 'qxJeUUuSDQXn78DH',
         'charset'   => 'utf8',

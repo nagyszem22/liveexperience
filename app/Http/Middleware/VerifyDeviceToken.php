@@ -3,16 +3,18 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Config;
 use App\Services\v1\ErrorService;
 
-class DatabaseHandler
+use DB;
+
+class VerifyDeviceToken
 {
     protected $error;
     public function __construct(ErrorService $error)
     {
         $this->error = $error;
     }
+
     /**
      * Changes database connection configuration if needed. 
      *
@@ -22,16 +24,15 @@ class DatabaseHandler
      */
     public function handle($request, Closure $next)
     {
-        $client = $_SERVER['HTTP_CLIENT'];
-        if (config('clients.'.$client) == null) {
-            return response()->json(
-                $this->error->clientDoesNotExist(),
-            200); 
+        $device = DB::table('device_tokens')
+                  ->where('token', $_SERVER['HTTP_TOKEN'])
+                  ->first();
+        if (!$device) {
+            return response()->json($this->error->deviceDoesNotExist(), 200);
         }
 
-        Config::set('database.connections.mysql', config('clients.'.$client));
-
         // continue request
+        $request->attributes->add(['device' => $device]);
         return $next($request);
     }
 }

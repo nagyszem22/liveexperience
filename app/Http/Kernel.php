@@ -46,7 +46,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
+        'loggedin' => \App\Http\Middleware\LoggedInToken::class,
+        'auth' => \App\Http\Middleware\AuthenticateDeviceToken::class,
+        'verified' => \App\Http\Middleware\VerifyDeviceToken::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

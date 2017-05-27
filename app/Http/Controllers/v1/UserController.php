@@ -41,7 +41,7 @@ class UserController extends Controller
         }
 
         /* call ticket method */
-        $answer = $this->user->ticket($request->input());
+        $answer = $this->user->ticket($request);
 
         /* return answer */
         return response()->json($answer);
@@ -55,11 +55,7 @@ class UserController extends Controller
     {
     	/* validate request */
     	$validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
-            'ticket' => 'required',
-            'device' => 'required',
-            'language' => 'required|numeric'
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -69,7 +65,7 @@ class UserController extends Controller
         }
 
         /* call login method */
-        $answer = $this->user->login($request->input());
+        $answer = $this->user->login($request);
 
         /* return answer */
         return response()->json($answer);
@@ -82,11 +78,7 @@ class UserController extends Controller
     {
         /* validate request */
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|confirmed',
-            'ticket' => 'required',
-            'device' => 'required',
-            'language' => 'required|numeric'
+            'password' => 'required|confirmed'
         ]);
 
         if ($validator->fails()) {
@@ -96,7 +88,7 @@ class UserController extends Controller
         }
 
         /* call registration method */
-        $answer = $this->user->registration($request->input());
+        $answer = $this->user->registration($request);
 
         /* return answer */
         return response()->json($answer);

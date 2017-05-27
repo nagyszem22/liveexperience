@@ -14,38 +14,15 @@ class ContentService
     {
         $match = DB::table('matches')
             ->join('competitions', 'matches.competition', '=', 'competitions.id')
-            ->join('language_associations as competition_name', 'competitions.name_association_id', '=', 'competition_name.language_association_id')
             ->join('teams as home', 'matches.home', '=', 'home.id')
             ->join('teams as away', 'matches.away', '=', 'away.id')
             ->join('stadiums', 'matches.stadium', '=', 'stadiums.id')
-            ->join('language_associations as stadium_name', 'stadiums.name_association_id', '=', 'stadium_name.language_association_id')
-            ->where('matches.id', $matchId)
-            ->where('competition_name.language', $languageId)
-            ->where('stadium_name.language', $languageId)
-            ->select(
-                'matches.kickoff as kickoff',
-                'matches.kick_off_real as kickoff_real',
-                'matches.gate_opening as gate_opening',
-                'matches.home_goal as home_goals',
-                'matches.halftime_home as home_halftime_goals',
-                'matches.halftime_away as away_halftime_goals',
-                'matches.away_goal as away_goals',
-                'matches.end_time as end_time',
-                'competitions.logo as competition_logo',
-                'stadium_name.text as stadium_name',
-                'competition_name.text as competition_name',
-                'competitions.id as competition_id',
-                'home.id as home_team_id',
-                'home.name as home_team_name',
-                'home.logo as home_team_logo',
-                'home.main_color as home_team_color',
-                'home.secondary_color as home_team_secondary_color',
-                'away.id as away_team_id',
-                'away.name as away_team_name',
-                'away.logo as away_team_logo',
-                'away.main_color as away_team_color',
-                'away.secondary_color as away_team_secondary_color'
-            )->first();
+            ->where('matches.id', $matchId);
+        if ($languageId = 1) {
+            $match = $match->select( 'matches.kickoff as kickoff', 'matches.kick_off_real as kickoff_real', 'matches.gate_opening as gate_opening', 'matches.home_goal as home_goals', 'matches.halftime_home as home_halftime_goals', 'matches.halftime_away as away_halftime_goals', 'matches.away_goal as away_goals', 'matches.end_time as end_time', 'competitions.logo as competition_logo', 'competitions.id as competition_id', 'home.id as home_team_id', 'home.name as home_team_name', 'home.logo as home_team_logo', 'home.main_color as home_team_color', 'home.secondary_color as home_team_secondary_color', 'away.id as away_team_id', 'away.name as away_team_name', 'away.logo as away_team_logo', 'away.main_color as away_team_color', 'away.secondary_color as away_team_secondary_color', 'competitions.name_hu as competition_name', 'stadiums.name_hu as stadium_name')->first();
+        } else {
+            $match = $match->select( 'matches.kickoff as kickoff', 'matches.kick_off_real as kickoff_real', 'matches.gate_opening as gate_opening', 'matches.home_goal as home_goals', 'matches.halftime_home as home_halftime_goals', 'matches.halftime_away as away_halftime_goals', 'matches.away_goal as away_goals', 'matches.end_time as end_time', 'competitions.logo as competition_logo', 'competitions.id as competition_id', 'home.id as home_team_id', 'home.name as home_team_name', 'home.logo as home_team_logo', 'home.main_color as home_team_color', 'home.secondary_color as home_team_secondary_color', 'away.id as away_team_id', 'away.name as away_team_name', 'away.logo as away_team_logo', 'away.main_color as away_team_color', 'away.secondary_color as away_team_secondary_color', 'competitions.name_en as competition_name', 'stadiums.name_en as stadium_name')->first();
+        }
 
         return $match;
     }
@@ -56,13 +33,12 @@ class ContentService
     {
         $referees = DB::table('referee_to_match')
             ->join('referees', 'referee_to_match.referee', '=', 'referees.id')
-            ->join('language_associations as role', 'referee_to_match.role_association_id', '=', 'role.language_association_id')
-            ->where('match_id', $matchId)
-            ->where('role.language', $languageId)
-            ->select(
-                'referees.name as name',
-                'role.text as role'
-            )->get();
+            ->where('match_id', $matchId);
+        if ($languageId = 1) {
+            $referees = $referees->select('referees.name as name', 'referee_to_match.role_hu as role')->get();
+        } else {
+            $referees = $referees->select('referees.name as name', 'referee_to_match.role_en as role')->get();
+        }
 
         return $referees;
     }
@@ -263,32 +239,21 @@ class ContentService
         /////////////////////////////////////////
         
         $actions = DB::table('live_action_happening as lah')
-            ->leftJoin('language_associations as la', 'lah.text_association_id', '=', 'la.language_association_id')
             ->leftJoin('live_action_events as lae', 'lah.event', '=', 'lae.id')
             ->leftJoin('language_associations as laen', 'lae.name_association_id', '=', 'laen.language_association_id')
             ->leftJoin('language_associations as laet', 'lae.text_association_id', '=', 'laet.language_association_id')
             ->leftJoin('player_to_happening as pth', 'lah.id', '=', 'pth.happening')
             ->leftJoin('players', 'pth.player', '=', 'players.id')
             ->where('lah.match_id', $matchId)
-            // ->where('la.language', $languageId)
-            // ->where('laen.language', $languageId)
-            // ->where('laet.language', $languageId)
-            ->select(
-                'lah.id as id',
-                'lah.minute as minute',
-                'lah.expected_minute as expected_minute',
-                'lah.likes as likes',
-                'lah.picture as picture',
-                'lah.video as video',
-                'la.text as text',
-                'lae.color as event_color',
-                'lae.background as event_background',
-                'lae.icon as event_icon',
-                'laen.text as event_name',
-                'laet.text as event_text',
-                'players.name as player_name',
-                'players.number as player_number'
+            ->where('laen.language', $languageId)
+            ->where('laet.language', $languageId);
+        if ($languageId == 1) {
+            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_hu as text', 'lae.color as event_color', 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number'
             )->get();
+        } else {
+            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_en as text', 'lae.color as event_color', 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number'
+            )->get();
+        }
 
         return $actions;
     }
@@ -336,18 +301,12 @@ class ContentService
     /* get the client's team staff */
     public function staff($languageId)
     {
-        $staff = DB::table('staff')
-            ->leftJoin('language_associations as name', 'name.language_association_id', '=', 'staff.name_association_id')
-            ->leftJoin('language_associations as title', 'title.language_association_id', '=', 'staff.title_association_id')
-            ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'staff.description_association_id')
-            ->where('title.language', $languageId)
-            ->where('description.language', $languageId)
-            ->select(
-                'name.text as name', 
-                'staff.picture as picture', 
-                'title.text as title', 
-                'description.text as description'
-            )->get();
+        $staff = DB::table('staff');
+        if ($languageId == 1) {
+            $staff = $staff->select('staff.name_hu as name', 'staff.picture as picture', 'staff.title_hu as title', 'staff.description_hu as description')->get();
+        } else {
+            $staff = $staff->select('staff.name_en as name', 'staff.picture as picture', 'staff.title_en as title', 'staff.description_en as description')->get();
+        }
 
         return $staff;
     }
@@ -356,16 +315,12 @@ class ContentService
     /* get the client's front officers */
     public function articles($languageId)
     {
-        $articles = DB::table('articles')
-            ->leftJoin('language_associations as title', 'title.language_association_id', '=', 'articles.title_association_id')
-            ->leftJoin('language_associations as text', 'text.language_association_id', '=', 'articles.text_association_id')
-            ->where('title.language', $languageId)
-            ->where('text.language', $languageId)
-            ->select(
-                'articles.img as image',
-                'title.text as title', 
-                'text.text as text'
-            )->get();
+        $articles = DB::table('articles');
+        if ($languageId == 1) {
+            $articles = $articles->select('articles.img as image','articles.title_hu as title', 'articles.text_hu as text')->get();
+        } else {
+            $articles = $articles->select('articles.img as image','articles.title_en as title', 'articles.text_en as text')->get();
+        }    
 
         return $articles;
     }
@@ -374,18 +329,12 @@ class ContentService
     /* get the client's front officers */
     public function front_office($languageId)
     {
-        $front_office = DB::table('front_office')
-             ->leftJoin('language_associations as name', 'name.language_association_id', '=', 'front_office.name_association_id')
-            ->leftJoin('language_associations as title', 'title.language_association_id', '=', 'front_office.title_association_id')
-            ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'front_office.description_association_id')
-            ->where('title.language', $languageId)
-            ->where('description.language', $languageId)
-            ->select(
-                'name.text as name', 
-                'front_office.picture as picture', 
-                'title.text as title', 
-                'description.text as description'
-            )->get();
+        $front_office = DB::table('front_office');
+            if ($languageId == 1) {
+                $front_office = $front_office->select('front_office.name_hu as name', 'front_office.picture as picture', 'front_office.title_hu as title', 'front_office.description_hu as description')->get();
+            } else {
+                $front_office = $front_office->select('front_office.name_en as name', 'front_office.picture as picture', 'front_office.title_en as title', 'front_office.description_en as description')->get();
+            }
 
         return $front_office;
     }
@@ -396,37 +345,14 @@ class ContentService
     {
         $matches = DB::table('matches')
             ->join('competitions', 'matches.competition', '=', 'competitions.id')
-            ->join('language_associations as competition_name', 'competitions.name_association_id', '=', 'competition_name.language_association_id')
             ->join('teams as home', 'matches.home', '=', 'home.id')
             ->join('teams as away', 'matches.away', '=', 'away.id')
-            ->join('stadiums', 'matches.stadium', '=', 'stadiums.id')
-            ->join('language_associations as stadium_name', 'stadiums.name_association_id', '=', 'stadium_name.language_association_id')
-            ->where('competition_name.language', $languageId)
-            ->where('stadium_name.language', $languageId)
-            ->select(
-                'matches.kickoff as kickoff',
-                'matches.kick_off_real as kickoff_real',
-                'matches.gate_opening as gate_opening',
-                'matches.home_goal as home_goals',
-                'matches.halftime_home as home_halftime_goals',
-                'matches.halftime_away as away_halftime_goals',
-                'matches.away_goal as away_goals',
-                'matches.end_time as end_time',
-                'competitions.logo as competition_logo',
-                'stadium_name.text as stadium_name',
-                'competition_name.text as competition_name',
-                'competitions.id as competition_id',
-                'home.id as home_team_id',
-                'home.name as home_team_name',
-                'home.logo as home_team_logo',
-                'home.main_color as home_team_color',
-                'home.secondary_color as home_team_secondary_color',
-                'away.id as away_team_id',
-                'away.name as away_team_name',
-                'away.logo as away_team_logo',
-                'away.main_color as away_team_color',
-                'away.secondary_color as away_team_secondary_color'
-            )->get();
+            ->join('stadiums', 'matches.stadium', '=', 'stadiums.id');
+        if ($languageId == 1) {
+            $matches = $matches->select('matches.kickoff as kickoff', 'matches.kick_off_real as kickoff_real', 'matches.gate_opening as gate_opening', 'matches.home_goal as home_goals', 'matches.halftime_home as home_halftime_goals', 'matches.halftime_away as away_halftime_goals', 'matches.away_goal as away_goals', 'matches.end_time as end_time', 'competitions.logo as competition_logo', 'stadiums.name_hu as stadium_name', 'competitions.name_hu as competition_name', 'competitions.id as competition_id', 'home.id as home_team_id', 'home.name as home_team_name', 'home.logo as home_team_logo', 'home.main_color as home_team_color', 'home.secondary_color as home_team_secondary_color', 'away.id as away_team_id', 'away.name as away_team_name', 'away.logo as away_team_logo', 'away.main_color as away_team_color', 'away.secondary_color as away_team_secondary_color')->get();
+        } else {
+            $matches = $matches->select('matches.kickoff as kickoff', 'matches.kick_off_real as kickoff_real', 'matches.gate_opening as gate_opening', 'matches.home_goal as home_goals', 'matches.halftime_home as home_halftime_goals', 'matches.halftime_away as away_halftime_goals', 'matches.away_goal as away_goals', 'matches.end_time as end_time', 'competitions.logo as competition_logo', 'stadiums.name_en as stadium_name', 'competitions.name_en as competition_name', 'competitions.id as competition_id', 'home.id as home_team_id', 'home.name as home_team_name', 'home.logo as home_team_logo', 'home.main_color as home_team_color', 'home.secondary_color as home_team_secondary_color', 'away.id as away_team_id', 'away.name as away_team_name', 'away.logo as away_team_logo', 'away.main_color as away_team_color', 'away.secondary_color as away_team_secondary_color')->get();
+        }
 
         return $matches;
     }
@@ -458,13 +384,12 @@ class ContentService
     /* get the client's team competitions */
     public function competitions($languageId)
     {
-        $competitions = DB::table('competitions')
-            ->join('language_associations as name', 'competitions.name_association_id', '=', 'name.language_association_id')
-            ->where('name.language', $languageId)
-            ->select(
-                'name.text as name',
-                'competitions.logo as logo'
-            )->get();
+        $competitions = DB::table('competitions');
+        if ($languageId == 1) {
+            $competitions = $competitions->select('competitions.name_hu as name', 'competitions.logo as logo')->get();
+        } else {
+            $competitions = $competitions->select('competitions.name_en as name', 'competitions.logo as logo')->get();
+        }
 
         return $competitions;
     }
@@ -473,16 +398,12 @@ class ContentService
     /* get the client's team basic infos */
     public function basics($languageId)
     {
-        $basics = DB::table('basics')
-            ->leftJoin('language_associations as title', 'title.language_association_id', '=', 'basics.name_association_id')
-            ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'basics.text_association_id')
-            ->where('title.language', $languageId)
-            ->where('description.language', $languageId)
-            ->select(
-                'title.text as title', 
-                'description.text as description',
-                'basics.picture as picture'
-            )->get();
+        $basics = DB::table('basics');
+        if ($languageId == 1) {
+            $basics = $basics->select('basics.name_hu as title', 'basics.text_hu as description', 'basics.picture as picture')->get();
+        } else {
+            $basics = $basics->select('basics.name_en as title', 'basics.text_en as description', 'basics.picture as picture')->get();
+        }
 
         return $basics;
     }
@@ -492,17 +413,12 @@ class ContentService
     /* get the client's team talents */
     public function talents($languageId)
     {
-        $talents = DB::table('talents')
-            ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'talents.description_association_id')
-            ->leftJoin('language_associations as name', 'name.language_association_id', '=', 'talents.name_association_id')
-            ->where('description.language', $languageId)
-            ->select(
-                'name.text as name',
-                'talents.background as background',
-                'talents.profile_picture as profile_picture',
-                'talents.big_picture as big_picture',
-                'description.text as description'
-            )->get();
+        $talents = DB::table('talents');
+        if ($languageId == 1) {
+            $talents = $talents->select('talents.name_hu as name', 'talents.background as background', 'talents.profile_picture as profile_picture', 'talents.big_picture as big_picture', 'talents.description_hu as description')->get();
+        } else {
+            $talents = $talents->select('talents.name_hu as name', 'talents.background as background', 'talents.profile_picture as profile_picture', 'talents.big_picture as big_picture', 'talents.description_hu as description')->get();
+        }
 
         return $talents;
     }
@@ -512,13 +428,12 @@ class ContentService
     /* get the message the team details */
     public function message_the_team($languageId)
     {
-        $message_the_team = DB::table('message_the_team')
-            ->leftJoin('language_associations as description', 'description.language_association_id', '=', 'message_the_team.description_association_id')
-            ->where('description.language', $languageId)
-            ->select(
-                'message_the_team.background as background',
-                'description.text as description'
-            )->first();
+        $message_the_team = DB::table('message_the_team');
+        if ($languageId == 1) {
+            $message_the_team = $message_the_team->select('message_the_team.background as background', 'message_the_team.description_hu as description')->first();
+        } else {
+            $message_the_team = $message_the_team->select('message_the_team.background as background', 'message_the_team.description_en as description')->first();
+        }
 
         return $message_the_team;
     }

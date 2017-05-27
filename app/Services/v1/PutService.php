@@ -35,12 +35,11 @@ class PutService extends Service
 
 
     /* save message on message the team game */
-    public function messageTheTeam($input)
+    public function messageTheTeam($request)
     {
         /* get the device of the current user and validate it */
-        if (!$device = $this->device($input['device_token'])) {
-            return $this->error->deviceDoesNotExist();
-        }
+        $input = $request->input();
+        $device = $request->attributes->get('device');
 
         /* save the message in the database */
         DB::table('message_the_team_messages')->insert([

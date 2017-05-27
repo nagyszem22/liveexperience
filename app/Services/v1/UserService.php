@@ -22,8 +22,12 @@ class UserService extends Service
 
 
 	/* Make current user log in */
-	public function ticket($input) 
+	public function ticket($request) 
 	{
+		/* define input fields */
+		$input = $request->input();
+		$device = $request->attributes->get('device');
+
 		/* get the ticket */
 		$ticket = DB::table('ticket')->where('code', $input['ticket'])->first();
 		if ($ticket == null) {
@@ -31,13 +35,11 @@ class UserService extends Service
 		}
 
 		/* check the date and time */
-		/* @todo: convert it to the local match time */
 		$now = strtotime(date("Y-m-d H:i:s"));
-		$now = 2147483647; // @todo: remove this line on production
 		if ($now < $ticket->start) {
 			return $this->error->matchHasNotStarted();
 		}
-		if ($now > $ticket->start) {
+		if ($now > $ticket->finish) {
 			return $this->error->matchHasFinished();
 		}
 
@@ -53,11 +55,11 @@ class UserService extends Service
 
 			/* if relation does not exist then create user and send a response */
 			} else {
-				$userId = DB::table('users')->insertGetId(['email' => $input['email']]);
-				DB::table('users_to_ticket')->insert([ 'user' => $userId, 'ticket' => $ticket->id]);
+				$userId = DB::table('users')->insertGetId(['email' => $input['email'], 'lang' => $device->language_id]);
+				DB::table('device_tokens')->where('id', $device->id)->update(['user_id' => $userId, 'expires' => $ticket->finish, 'match_id' => $ticket->match_id]);
+				DB::table('users_to_ticket')->insert(['user' => $userId, 'ticket' => $ticket->id]);
+				
 				return $this->createResponse([
-					"email" => $input['email'], 
-					"ticket" => $input['ticket'],
 					"is_user" => 0
 				]);
 			}
@@ -69,101 +71,54 @@ class UserService extends Service
 
 			/* if relation doesn't exist then it's not the users ticket */
 			if ($relation == null) {
-				return $this->error->notTheUsersTicket();
+				DB::table('users_to_ticket')->insert(['user' => $user->id, 'ticket' => $ticket->id]);
+				DB::table('device_tokens')->where('id', $device->id)->update(['expires' => $ticket->finish, 'match_id' => $ticket->match_id]);
 			} 
 
 			/* if relation exists then send response */
-			else {
-				return $this->createResponse([
-					"email" => $input['email'], 
-					"ticket" => $input['ticket'],
-					"is_user" => 1
-				]);
-			}
+			return $this->createResponse([
+				"is_user" => 1
+			]);
 		}
 	}
 
 
 
 	/* Make current user log in */
-	public function login($input) 
+	public function login($request) 
 	{
-		$user = DB::table('users')->where('email', $input['email'])->where('password', $input['password'])->first();
+		/* define input fields */
+		$input = $request->input();
+		$device = $request->attributes->get('device');
+
+		/* make the user log in */
+		$user = DB::table('users')->where('id', $device->user_id)->where('password', $input['password'])->first();
 		if ($user == null) {
 			return $this->error->userAuthFailed();
 		}
 
-		$ticket = DB::table('ticket')->where('code', $input['ticket'])->first();
-		if ($ticket == null) {
-			return $this->error->userDoesNotHaveTicket();
-		}
-
-		$relation = DB::table('users_to_ticket')->where('user', $user->id)->where('ticket', $ticket->id)->first();
-		if ($relation == null) {
-			return $this->error->notTheUsersTicket();
-		}
-
-		/* @todo: convert it to the local match time */
-		$now = strtotime(date("Y-m-d H:i:s"));
-		// $now = 2147483647;
-		if ($now < $ticket->start) {
-			return $this->error->matchHasNotStarted();
-		}
-
-		if ($now > $ticket->start) {
-			return $this->error->matchHasFinished();
-		}
-
-		/* add user's device */
-		$deviceToken = $this->addDevice($user, $ticket, $input);
-
 		/* send the response back */
-		return $this->createResponse([
-			"device_token" => $deviceToken, 
-			"app_content" => $this->appInit->initMatchDay($ticket->match_id, $input['language'])
+		DB::table('device_tokens')->where('id', $device->id)->update(['logged_in' => 1]);
+		return $this->createResponse([ 
+			"app_content" => $this->appInit->initMatchDay($device->match_id, $device->language_id)
 		]);
 	}
 
 
 
-	public function registration($input)
+	public function registration($request)
 	{
-		$user = DB::table('users')->where('email', $input['email'])->first();
-		if ($user == null) {
-			return $this->error->userAuthFailed();
-		}
+		/* define input fields */
+		$input = $request->input();
+		$device = $request->attributes->get('device');
 
-		$ticket = DB::table('ticket')->where('code', $input['ticket'])->first();
-		if ($ticket == null) {
-			return $this->error->userDoesNotHaveTicket();
-		}
-
-		$relation = DB::table('users_to_ticket')->where('user', $user->id)->where('ticket', $ticket->id)->first();
-		if ($relation == null) {
-			return $this->error->notTheUsersTicket();
-		}
-
-		/* @todo: convert it to the local match time */
-		$now = strtotime(date("Y-m-d H:i:s"));
-		$now = 2147483647;
-		if ($now < $ticket->start) {
-			return $this->error->matchHasNotStarted();
-		}
-
-		if ($now > $ticket->start) {
-			return $this->error->matchHasFinished();
-		}
-
-		/* add user's device */
-		$deviceToken = $this->addDevice($user, $ticket, $input);
-
-		/* add user's password */
-		DB::table('users')->where('id', $user->id)->update(['password' => $input['password']]);
+		/* get the user details */
+		DB::table('users')->where('id', $device->user_id)->update(['password' => $input['password']]);
 
 		/* send the response back */
+		DB::table('device_tokens')->where('id', $device->id)->update(['logged_in' => 1]);
 		return $this->createResponse([
-			"device_token" => $deviceToken, 
-			"app_content" => $this->appInit->initMatchDay($ticket->match_id, $input['language'])
+			"app_content" => $this->appInit->initMatchDay($device->match_id, $device->language_id)
 		]);
 	}
 
