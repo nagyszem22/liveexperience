@@ -54,12 +54,11 @@ class PutService extends Service
 
 
     /* save the user answer on ask the fans game */
-    public function askTheFans($input)
+    public function askTheFans($request)
     {
         /* get the device of the current user and validate it */
-        if (!$device = $this->device($input['device_token'])) {
-            return $this->error->deviceDoesNotExist();
-        }
+        $input = $request->input();
+        $device = $request->attributes->get('device');
 
         /* save the message in the database */
         DB::table('ask_the_fans_user_tipps')->insert([
@@ -74,12 +73,11 @@ class PutService extends Service
 
 
     /* save the user answer on predict and win game */
-    public function predictAndWin($input)
+    public function predictAndWin($request)
     {
         /* get the device of the current user and validate it */
-        if (!$device = $this->device($input['device_token'])) {
-            return $this->error->deviceDoesNotExist();
-        }
+        $input = $request->input();
+        $device = $request->attributes->get('device');
 
         /* save predict and win tip in database */
         DB::table('predict_and_win_user_tipps')->insert([

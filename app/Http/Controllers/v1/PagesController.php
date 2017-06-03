@@ -43,21 +43,13 @@ class PagesController extends Controller
 
     public function predictAndWin(Request $request)
     {
-        /* validate request */
-        $validator = Validator::make($request->all(), [
-            'device_token' => 'required'
-        ]);
+       /* return answer */
+        return response()->json($this->page->predictAndWin($request->attributes->get('device')));
+    }
 
-        if ($validator->fails()) {
-            return response()->json(
-                $this->error->formValidationFailed($validator->messages()),
-            200);
-        }
-
-        /* call predict and win method */
-        $answer = $this->page->predictAndWin($request->input());
-
-        /* return answer */
-        return response()->json($answer);
+    public function predictAndWinHistory(Request $request)
+    {
+       /* return answer */
+        return response()->json($this->page->predictAndWinHistory($request->attributes->get('device')));
     }
 }

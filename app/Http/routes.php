@@ -44,11 +44,12 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
 
     /* ask the fans routes */
     Route::get('askthefans/get', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@askTheFans']);
-    Route::post('askthefans/post/{client}', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@askTheFans']);
+    Route::post('askthefans/post', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@askTheFans']);
 
 
     /* predict and win routes */
-    Route::post('predictandwin/get/{client}', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@predictAndWin']);
-    Route::post('predictandwin/post/{client}', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@predictAndWin']);
+    Route::get('predictandwin/get', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@predictAndWin']);
+    Route::get('predictandwin/history/get', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@predictAndWinHistory']);
+    Route::post('predictandwin/post', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@predictAndWin']);
 
 });

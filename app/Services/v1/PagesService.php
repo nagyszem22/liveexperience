@@ -40,16 +40,16 @@ class PagesService extends Service
 
 
     /* predict and win */
-    public function predictAndWin($input)
+    public function predictAndWin($device)
     {
-        /* get the device of the current user and validate it */
-        if (!$device = $this->device($input['device_token'])) {
-            return $this->error->deviceDoesNotExist();
-        }
+        return $this->createResponse($this->content->predict_and_win($device->language_id, $device->match_id));
+    }
 
-        /* get predict and win questions */
-        $content = $this->content->predict_and_win($device->language_id, $device->match_id);
 
-        return $this->createResponse($content);
+
+    /* predict and win history */
+    public function predictAndWinHistory($device)
+    {
+        return $this->createResponse($this->content->predict_and_win_history($device->language_id, $device->user_id));
     }
 }

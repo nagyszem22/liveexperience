@@ -290,7 +290,9 @@ class ContentService
             ->select(
                 'players.name as name', 
                 'players.number as number', 
-                'players.picture as picture', 
+                'players.picture as picture',
+                'players.stat_picture as stat_picture',
+                'players.event_picture as event_picture',
                 'players.birthdate as birthday'
             )->get();
 
@@ -312,7 +314,7 @@ class ContentService
     }
 
 
-    /* get the client's front officers */
+    /* get the client's articles */
     public function articles($languageId)
     {
         $articles = DB::table('articles');
@@ -323,6 +325,21 @@ class ContentService
         }    
 
         return $articles;
+    }
+
+
+
+    /* get the client's events */
+    public function events($languageId)
+    {
+        $events = DB::table('events');
+        if ($languageId == 1) {
+            $events = $events->select('events.img as image','events.title_hu as title', 'events.text_hu as text')->get();
+        } else {
+            $events = $events->select('events.img as image','events.title_en as title', 'events.text_en as text')->get();
+        }    
+
+        return $events;
     }
 
 
@@ -440,37 +457,21 @@ class ContentService
 
 
 
-    /*  */
+    /* get ask the fans */
     public function ask_the_fans($languageId, $matchId)
     {
-        $ask_the_fans = DB::table('ask_the_fans_question as atf')
-            ->join('ask_the_fans_question_to_match as match', 'match.question', '=', 'atf.id')
-            ->leftJoin('language_associations as question', 'question.language_association_id', '=', 'atf.question_association_id')
-            ->leftJoin('ask_the_fans_answer as answers1', 'answers1.id', '=', 'atf.answer1')
-            ->leftJoin('ask_the_fans_answer as answers2', 'answers2.id', '=', 'atf.answer2')
-            ->leftJoin('language_associations as answer1', 'answer1.language_association_id', '=', 'answers1.answer_association_id')
-            ->leftJoin('language_associations as answer2', 'answer2.language_association_id', '=', 'answers2.answer_association_id')
-            ->leftJoin('language_associations as response1', 'response1.language_association_id', '=', 'answers1.response_association_id')
-            ->leftJoin('language_associations as response2', 'response2.language_association_id', '=', 'answers2.response_association_id')
-            ->where('question.language', $languageId)
-            ->where('answer1.language', $languageId)
-            ->where('answer2.language', $languageId)
-            ->where('response1.language', $languageId)
-            ->where('response2.language', $languageId)
-            ->where('atf.active', 1)
-            ->where('match.match_id', $matchId)
-            ->select(
-                'atf.id as question_id',
-                'question.text as question',
-                'atf.picture as picture',
-                'atf.answer_time as time',
-                'answers1.id as answer1_id',
-                'answer1.text as answer1',
-                'answers2.id as answer2_id',
-                'answer2.text as answer2',
-                'response1.text as response1',
-                'response2.text as response2'
-            )->get();
+        $ask_the_fans = DB::table('ask_the_fans_question as question')
+            ->join('ask_the_fans_question_to_match as match', 'match.question', '=', 'question.id')
+            ->leftJoin('ask_the_fans_answer as answer1', 'answer1.id', '=', 'question.answer1')
+            ->leftJoin('ask_the_fans_answer as answer2', 'answer2.id', '=', 'question.answer2')
+            ->where('question.active', 1)
+            ->where('match.match_id', $matchId);
+        if ($languageId == 1) {
+            $ask_the_fans = $ask_the_fans->select('question.id as question_id', 'question.question_hu as question', 'question.picture as picture', 'question.answer_time as time', 'answer1.id as answer1_id', 'answer1.answer_hu as answer1', 'answer2.id as answer2_id', 'answer2.answer_hu as answer2', 'answer1.response_hu as response1', 'answer2.response_hu as response2')->get();
+        } else {
+            $ask_the_fans = $ask_the_fans->select('question.id as question_id', 'question.question_en as question', 'question.picture as picture', 'question.answer_time as time', 'answer1.id as answer1_id', 'answer1.answer_en as answer1', 'answer2.id as answer2_id', 'answer2.answer_en as answer2', 'answer1.response_en as response1', 'answer2.response_en as response2')->get();
+        }
+        
 
         return $ask_the_fans;
     }
@@ -480,23 +481,18 @@ class ContentService
     /* get predict and win questions */
     public function predict_and_win($languageId, $matchId)
     {
-        $predict_and_win = DB::table('predict_and_win_questions as pan')
-            ->leftJoin('language_associations as question', 'question.language_association_id', '=', 'pan.question_association_id')
-            ->leftJoin('predict_and_win_answer_to_question as atq', 'atq.question', '=', 'pan.id')
-            ->leftJoin('predict_and_win_anwers as pawa', 'pawa.id', '=', 'atq.answer')
-            ->leftJoin('language_associations as answer', 'answer.language_association_id', '=', 'pawa.answer_association_id')
-            ->where('question.language', $languageId)
-            ->where('answer.language', $languageId)
-            ->where('pan.match_id', $matchId)
-            ->groupBy('pan.id')
-            ->orderBy('pan.ordering')
-            ->select(
-                'pan.id as question_id',
-                'pan.ordering as order',
-                'question.text as question',
-                DB::raw('group_concat(pawa.id) as answer_ids'),
-                DB::raw('group_concat(answer.text) as answers')
-            )->get();
+        $predict_and_win = DB::table('predict_and_win_questions as question')
+            ->leftJoin('predict_and_win_answer_to_question as atq', 'atq.question', '=', 'question.id')
+            ->leftJoin('predict_and_win_anwers as answer', 'answer.id', '=', 'atq.answer')
+            ->where('question.match_id', $matchId)
+            // ->where('question.right_answer', 0) // uncomment this line in production
+            ->groupBy('question.id')
+            ->orderBy('question.ordering');
+        if ($languageId == 1) {
+            $predict_and_win = $predict_and_win->select('question.id as question_id', 'question.ordering as order', 'question.question_hu as question', DB::raw('group_concat(answer.id) as answer_ids'), DB::raw('group_concat(answer.answer_hu) as answers'))->get();
+        } else {
+            $predict_and_win = $predict_and_win->select('question.id as question_id', 'question.ordering as order', 'question.question_en as question', DB::raw('group_concat(answer.id) as answer_ids'), DB::raw('group_concat(answer.answer_en) as answers'))->get();
+        }
 
         $questions = array();
         $key = 0;
@@ -517,6 +513,26 @@ class ContentService
         }
 
         return $questions;
+    }
+
+
+
+    /* get predict and win history */
+    public function predict_and_win_history($languageId, $userId)
+    {
+        $history = DB::table('predict_and_win_user_tipps as tipp')
+            ->leftJoin('predict_and_win_questions as question', 'tipp.question', '=', 'question.id')
+            ->leftJoin('predict_and_win_anwers as answer', 'tipp.answer', '=', 'answer.id')
+            ->leftJoin('predict_and_win_anwers as right_answer', 'question.right_answer', '=', 'right_answer.id')
+            ->where('tipp.user', $userId)
+            ->orderBy('question.ordering');
+        if ($languageId == 1) {
+            $history = $history->select('question.ordering as order', 'question.question_hu as question', 'answer.answer_hu as answer', 'right_answer.answer_hu as right_answer')->get();
+        } else {
+            $history = $history->select('question.ordering as order', 'question.question_en as question', 'answer.answer_en as answer', 'right_answer.answer_en as right_answer')->get();
+        }
+
+        return $history;
     }
 
 }

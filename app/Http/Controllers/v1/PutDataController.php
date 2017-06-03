@@ -73,8 +73,7 @@ class PutDataController extends Controller
         /* validate request */
         $validator = Validator::make($request->all(), [
             'question_id'  => 'required|numeric|exists:ask_the_fans_question,id',
-            'answer_id' => 'required|numeric|exists:ask_the_fans_answer,id',
-            'device_token' => 'required'
+            'answer_id' => 'required|numeric|exists:ask_the_fans_answer,id'
         ]);
 
         if ($validator->fails()) {
@@ -83,8 +82,8 @@ class PutDataController extends Controller
             200);
         }
 
-        /* call message the team method */
-        $answer = $this->put->askTheFans($request->input());
+        /* call ask the fans method */
+        $answer = $this->put->askTheFans($request);
 
         /* return answer */
         return response()->json($answer);
@@ -97,8 +96,7 @@ class PutDataController extends Controller
         /* validate request */
         $validator = Validator::make($request->all(), [
             'question_id'  => 'required|numeric|exists:predict_and_win_questions,id',
-            'answer_id' => 'required|numeric|exists:predict_and_win_anwers,id',
-            'device_token' => 'required'
+            'answer_id' => 'required|numeric|exists:predict_and_win_anwers,id'
         ]);
 
         if ($validator->fails()) {
@@ -108,7 +106,7 @@ class PutDataController extends Controller
         }
 
         /* call message the team method */
-        $answer = $this->put->predictAndWin($request->input());
+        $answer = $this->put->predictAndWin($request);
 
         /* return answer */
         return response()->json($answer);
