@@ -334,9 +334,9 @@ class ContentService
     {
         $events = DB::table('events');
         if ($languageId == 1) {
-            $events = $events->select('events.img as image','events.title_hu as title', 'events.text_hu as text')->get();
+            $events = $events->select('events.picture as image','events.name_hu as title', 'events.description_hu as text')->get();
         } else {
-            $events = $events->select('events.img as image','events.title_en as title', 'events.text_en as text')->get();
+            $events = $events->select('events.picture as image','events.name_en as title', 'events.description_en as text')->get();
         }    
 
         return $events;
