@@ -123,6 +123,24 @@ class UserService extends Service
 	}
 
 
+
+	public function passwordReset($request)
+	{
+		/* define input fields */
+		$input = $request->input();
+		$device = $request->attributes->get('device');
+
+		/* get the user details */
+		DB::table('users')->where('id', $device->user_id)->update(['password' => $input['password']]);
+
+		/* send the response back */
+		DB::table('device_tokens')->where('id', $device->id)->update(['logged_in' => 1]);
+		return $this->createResponse([
+			"app_content" => $this->appInit->initMatchDay($device->match_id, $device->language_id)
+		]);
+	}
+
+
 	/* Make current user log out */
 	public function logout($deviceToken) 
 	{

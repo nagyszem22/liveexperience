@@ -26,6 +26,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
     Route::post('user/ticket', ['middleware' => 'verified', 'uses' => 'v1\UserController@ticket']);
     Route::post('user/login', ['middleware' => 'auth', 'uses' => 'v1\UserController@login']);
     Route::post('user/registration', ['middleware' => 'auth', 'uses' => 'v1\UserController@registration']);
+    Route::post('user/passwordreset', ['middleware' => 'auth', 'uses' => 'v1\UserController@passwordReset']);
 
 
     /* app sofa fan routes */
@@ -51,5 +52,24 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
     Route::get('predictandwin/get', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@predictAndWin']);
     Route::get('predictandwin/history/get', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@predictAndWinHistory']);
     Route::post('predictandwin/post', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@predictAndWin']);
+
+
+    /* spotify routes */
+    Route::get('spotify/get', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@spotify']);
+    Route::post('spotify/post', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@spotify']);
+
+
+    /* ??? player of the match ??? */
+    Route::get('mvp/get', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@mvp']);
+    Route::post('mvp/post', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@mvp']);
+
+
+    /* fans help routes */
+    Route::get('fanshelp/get', ['middleware' => 'verified', 'uses' => 'v1\PagesController@fanshelp']);
+    Route::post('fanshelp/post', ['middleware' => 'verified', 'uses' => 'v1\PutDataController@fanshelp']);
+
+
+    /* the mall routes */
+    Route::post('mall/get', ['middleware' => 'verified', 'uses' => 'v1\PagesController@mall']);
 
 });

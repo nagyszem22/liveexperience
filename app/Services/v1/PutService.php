@@ -26,6 +26,7 @@ class PutService extends Service
         DB::table('emails')->insert([
             'sender_name' => $input['name'], 
             'sender_email' => $input['email'],
+            'subject' => $input['subject'],
             'text' => $input['text']
         ]);
 
@@ -87,5 +88,53 @@ class PutService extends Service
         ]);
 
         return $this->createResponse(['answer' => 'Answer has been successfully saved.']);
+    }
+
+
+
+    /* save or update spotify songs */
+    public function spotify($request)
+    {
+        /* get the device of the current user and validate it */
+        $input = $request->input();
+        $device = $request->attributes->get('device');
+
+        /* save or update spotify sonng */
+        if (!DB::table('spotify')->where('spotify_id', $input['spotify_id'])->first()) {
+            DB::table('spotify')->insert([
+                'userid' => $device->user_id,
+                'spotify_id' => $input['spotify_id'],
+                'vote' => 1,
+                'song' => $input['song'],
+                'album_cover' => $input['album_cover'],
+                'artist' => $input['artist']
+            ]);
+        } else {
+            DB::table('spotify')->where('spotify_id', $input['spotify_id'])->increment('vote');
+        }
+
+        return $this->createResponse(['answer' => 'Song has been successfully saved or updated.']);
+    }
+
+
+
+    /* save fanshelp vote */
+    public function fanshelp($request)
+    {
+        /* get the device of the current user and validate it */
+        $input = $request->input();
+        $device = $request->attributes->get('device');
+
+        /* increase the current type of vote number */
+        $query = DB::table('live_action_happening')->where('id', $input['question_id'])->where('able_to_vote', 1)->where('match_id', $device->match_id);
+        if ($input['vote'] == 'agree') {
+            $query->increment('agree');
+        } elseif ($input['vote'] == 'disagree') {
+            $query->increment('disagree');
+        } elseif ($input['vote'] == 'canttel') {
+            $query->increment('canttel');
+        }
+
+        return $this->createResponse(['answer' => 'The vote has been successfully saved.']);
     }
 }

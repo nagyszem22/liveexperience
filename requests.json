@@ -695,7 +695,9 @@
 					"type": "picture",
 					"likes": 2,
 					"posted_at": "2017-04-04 01:32:27",
-					"hashtags":"hellyeahh,Lovayaa"
+					"hashtags":"hellyeahh,Lovayaa",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				{
 					"url":"http:\/\/lorempixel.com\/400\/200\/sports",
@@ -703,7 +705,9 @@
 					"type":"picture",
 					"likes":4,
 					"posted_at":"2017-04-04 01:32:27",
-					"hashtags":"Dirtycat,sexintheforest,ijustgotnailed"
+					"hashtags":"Dirtycat,sexintheforest,ijustgotnailed",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				{
 					"url":"https:\/\/08-lvl3-pdl.vimeocdn.com\/01\/4289\/4\/121445495\/343291949.mp4?expires=1491277054&token=0aba99bcc49349fceee97",
@@ -711,7 +715,9 @@
 					"type": "video",
 					"likes":6,
 					"posted_at":"2017-04-04 01:39:51",
-					"hashtags":"gyurcsanytakarodj"
+					"hashtags":"gyurcsanytakarodj",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				"etc"
 			]
@@ -731,7 +737,9 @@
 			 	"event_name":"S\u00e1rga lap",
 			 	"event_text":"S\u00e1rga lapos figyelmeztet\u00e9sben r\u00e9szes\u00fclt [player_0].",
 			 	"player_name":"Perovic Mihailo ",
-			 	"player_number":11
+			 	"player_number":11,
+				"created_at": "2017-05-27 15:56:29",
+				"updated_at": null
 			},
 			{
 				"id": 151,
@@ -747,7 +755,9 @@
 				"event_name":"Els\u0151 f\u00e9lid\u0151 v\u00e9ge",
 				"event_text":"Els\u0151 f\u00e9lid\u0151 v\u00e9ge",
 				"player_name":null,
-				"player_number":null
+				"player_number":null,
+				"created_at": "2017-05-27 15:56:29",
+				"updated_at": null
 			},
 			"etc"
 		]
@@ -810,38 +820,50 @@
 			{
 				"image": "\/articles\/asd.jpg",
 				"title": "OTP Bank Liga NB1",
-				"text": "Sed ut perspiciatis unde omnis ..."
+				"text": "Sed ut perspiciatis unde omnis ...",
+				"created_at": "2017-05-27 15:56:29",
+				"updated_at": null
 			},
 			{
 				"image": "\/articles\/test.jpg",
 				"title": "Magyar Kupa",
-				"text": "Sed ut perspiciatis unde ..."
+				"text": "Sed ut perspiciatis unde ...",
+				"created_at": "2017-05-27 15:56:29",
+				"updated_at": null
 			}
 		],
 		"events": [
 			{
 				"image": "\/articles\/asd.jpg",
 				"title": "OTP Bank Liga NB1",
-				"text": "Sed ut perspiciatis unde omnis ..."
+				"text": "Sed ut perspiciatis unde omnis ...",
+				"created_at": "2017-05-27 15:56:29",
+				"updated_at": null
 			},
 			{
 				"image": "\/articles\/test.jpg",
 				"title": "Magyar Kupa",
-				"text": "Sed ut perspiciatis unde ..."
+				"text": "Sed ut perspiciatis unde ...",
+				"created_at": "2017-05-27 15:56:29",
+				"updated_at": null
 			}
 		],
 		"stadium_tools": [
 			{
+				"image": "stadiumtools/13138540-569224-45ed9b206b4f8ce4a32460584cedf411-wm.jpg",
 				"name": "Közlekedés",
-				"picture": "stadiumtools/13138540-569224-45ed9b206b4f8ce4a32460584cedf411-wm.jpg",
 				"text": "Sed ut perspiciatis unde omnis ...",
-				"info": "Sed ut perspiciatis unde omnis ..."
+				"info": "Sed ut perspiciatis unde omnis ...",
+				"created_at": "2017-05-27 15:56:29",
+				"updated_at": null
 			},
 			{
+				"image": "stadiumtools/13138540-569224-45ed9b206b4f8ce4a32460584cedf411-wm.jpg",
 				"name": "Közlekedés",
-				"picture": "stadiumtools/13138540-569224-45ed9b206b4f8ce4a32460584cedf411-wm.jpg",
 				"text": "Sed ut perspiciatis unde omnis ...",
-				"info": "Sed ut perspiciatis unde omnis ..."
+				"info": "Sed ut perspiciatis unde omnis ...",
+				"created_at": "2017-05-27 15:56:29",
+				"updated_at": null
 			}
 		],
 		"club_zone": {
@@ -858,14 +880,18 @@
 					"number": 19,
 					"picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/johndoe.png",
 					"stat_picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/johndoe.png",
-					"birthday": "1987-06-13"
+					"birthday": "1987-06-13",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				{
 					"name": "Angelov  Iktor",
 					"number": 11,
 					"picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/865\/864183.jpg",
 					"stat_picture": "http:\/\/adatbank.mlsz.hu\/img\/SzemelyFoto\/Foto\/johndoe.png",
-					"birthday": "1994-03-27"
+					"birthday": "1994-03-27",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				"etc ..."
 			],
@@ -874,13 +900,17 @@
 					"name": "Teszt Elek",
 					"picture": "\/staff\/teszt_elek.jpg",
 					"title": "Szusza Ferenc Stadion",
-					"description": "Groupama Arena"
+					"description": "Groupama Arena",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				{
 					"name": "Kiss Istv\u00e1n",
 					"picture": "\/staff\/kiss_istvan.jpg",
 					"title":"OTP Bank Liga NB1",
-					"description": "\u00daj Hidegkuti N\u00e1ndor Stadion"
+					"description": "\u00daj Hidegkuti N\u00e1ndor Stadion",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				"etc ..."
 			],
@@ -889,13 +919,17 @@
 					"name": "Kiss P\u00e9ter",
 					"picture": "\/office\/kisspeter.jpg",
 					"title": "Szusza Ferenc Stadion",
-					"description": "Bozsik Stadion"
+					"description": "Bozsik Stadion",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				{
 					"name": "Nagy \u00c1lmos",
 					"picture": "\/office\/nagy_almos.jpg",
 					"title": "Groupama Arena",
-					"description": "Bozsik Stadion"
+					"description": "Bozsik Stadion",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				"etc ..."
 			],
@@ -918,7 +952,9 @@
 					"background": "e2e2e2",
 					"profile_picture": "talents\/kiss_istvan.jpg",
 					"big_picture": "talents\/kiss_istvan_nagy.jpg",
-					"description": "Piros lap"
+					"description": "Piros lap",
+					"created_at": "2017-05-27 15:56:29",
+					"updated_at": null
 				},
 				"etc ..."
 			],
@@ -992,7 +1028,7 @@
 //////////////////////////////////////////////////
 // CONTACT US
 //------------------------------------------------
-// url: api/v1/nonmatchday/init
+// url: api/v1/nonmatchday/contactus
 // type: POST
 // errors: 1,2
 //////////////////////////////////////////////////
@@ -1000,6 +1036,7 @@
 /* request */
 {
 	"name": "Kovács Béla",
+	"subject": "This is the subject",
 	"email": "kovacsbela@gmail.com",
 	"text": "This is an email from Kovács Béla."
 }
@@ -1350,6 +1387,67 @@
 		},
 		"etc ..."
 	]
+}
+
+
+
+//////////////////////////////////////////////////
+// SPOTIFY
+//------------------------------------------------
+// url: api/v1/spotify/get
+// type: GET
+// errors: 1,2
+//////////////////////////////////////////////////
+
+/* Response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": [
+		{
+			"artist": "Bogi",
+			"song": "This is a cool song",
+			"album_cover": "http:\/\/www.glamour.hu\/lapokkepek\/cikkek\/19000\/19426_bogi.jpg",
+			"spotify_id":null
+		},
+		{
+			"artist": "Bogi",
+			"song": "This is a cool song",
+			"album_cover": "http:\/\/www.glamour.hu\/lapokkepek\/cikkek\/19000\/19426_bogi.jpg",
+			"spotify_id": "vbfg1g4d2d3d9"
+		}
+	]
+}
+
+/* Response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"answer": "Song has been successfully saved or updated."
+	}
+}
+
+
+
+//////////////////////////////////////////////////
+// SPOTIFY
+//------------------------------------------------
+// url: api/v1/spotify/post
+// type: POST
+// errors: 1,2
+//////////////////////////////////////////////////
+
+/* Request */
+{
+	"spotify_id": "fggk21fgd4F",
+	"song": "Piano Man",
+	"album_cover": "Piano Man (Album)",
+	"artist": "Billy Joel"
 }
 
 

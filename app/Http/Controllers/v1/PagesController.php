@@ -52,4 +52,20 @@ class PagesController extends Controller
        /* return answer */
         return response()->json($this->page->predictAndWinHistory($request->attributes->get('device')));
     }
+
+
+
+    public function spotify(Request $request)
+    {
+       /* return answer */
+        return response()->json($this->page->spotify());
+    }
+
+
+
+    public function fanshelp(Request $request)
+    {
+       /* return answer */
+        return response()->json($this->page->fanshelp($request->attributes->get('device')));
+    }
 }

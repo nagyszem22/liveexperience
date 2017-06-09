@@ -93,4 +93,27 @@ class UserController extends Controller
         /* return answer */
         return response()->json($answer);
     }
+
+
+
+    /* password reset */
+    public function passwordReset(Request $request) 
+    {
+        /* validate request */
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $this->error->formValidationFailed($validator->messages()),
+            200);
+        }
+
+        /* call registration method */
+        $answer = $this->user->passwordReset($request);
+
+        /* return answer */
+        return response()->json($answer);
+    }
 }

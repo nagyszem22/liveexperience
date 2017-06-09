@@ -35,9 +35,9 @@ class ContentService
             ->join('referees', 'referee_to_match.referee', '=', 'referees.id')
             ->where('match_id', $matchId);
         if ($languageId = 1) {
-            $referees = $referees->select('referees.name as name', 'referee_to_match.role_hu as role')->get();
+            $referees = $referees->select('referees.name as name', 'referee_to_match.role_hu as role', 'referees.created_at as created_at')->get();
         } else {
-            $referees = $referees->select('referees.name as name', 'referee_to_match.role_en as role')->get();
+            $referees = $referees->select('referees.name as name', 'referee_to_match.role_en as role', 'referees.created_at as created_at')->get();
         }
 
         return $referees;
@@ -207,13 +207,7 @@ class ContentService
             ->where('ls.matchid', '=', $matchId)
             ->where('ls.id', '>', $lastId)
             ->groupBy('ls.id')
-            ->select(
-                'ls.id as id',
-                'ls.url as url',
-                'ls.type as type',
-                'ls.likes as likes',
-                'ls.created_at as posted_at',
-                DB::raw('group_concat(lh.hashtag) as hashtags')
+            ->select( 'ls.id as id', 'ls.url as url', 'ls.type as type', 'ls.likes as likes', 'ls.created_at as posted_at', DB::raw('group_concat(lh.hashtag) as hashtags', 'ls.created_at as created_at', 'ls.updated_at as updated_at')
             )->get();
 
         /* if there are no posts yet */
@@ -248,10 +242,10 @@ class ContentService
             ->where('laen.language', $languageId)
             ->where('laet.language', $languageId);
         if ($languageId == 1) {
-            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_hu as text', 'lae.color as event_color', 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number'
+            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_hu as text', 'lae.color as event_color', 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number', 'lah.created_at as created_at', 'lah.updated_at as updated_at'
             )->get();
         } else {
-            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_en as text', 'lae.color as event_color', 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number'
+            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_en as text', 'lae.color as event_color', 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number', 'lah.created_at as created_at', 'lah.updated_at as updated_at'
             )->get();
         }
 
@@ -287,13 +281,7 @@ class ContentService
         $players = DB::table('players_to_team')
             ->join('players', 'players_to_team.player', '=', 'players.id')
             ->where('players_to_team.team', $teamId)
-            ->select(
-                'players.name as name', 
-                'players.number as number', 
-                'players.picture as picture',
-                'players.stat_picture as stat_picture',
-                'players.event_picture as event_picture',
-                'players.birthdate as birthday'
+            ->select( 'players.name as name',  'players.number as number',  'players.picture as picture', 'players.stat_picture as stat_picture', 'players.event_picture as event_picture', 'players.birthdate as birthday', 'players.created_at as created_at', 'players.updated_at as updated_at'
             )->get();
 
         return $players;
@@ -305,9 +293,9 @@ class ContentService
     {
         $staff = DB::table('staff');
         if ($languageId == 1) {
-            $staff = $staff->select('staff.name_hu as name', 'staff.picture as picture', 'staff.title_hu as title', 'staff.description_hu as description')->get();
+            $staff = $staff->select('staff.name_hu as name', 'staff.picture as picture', 'staff.title_hu as title', 'staff.description_hu as description', 'staff.created_at as created_at', 'staff.updated_at as updated_at')->get();
         } else {
-            $staff = $staff->select('staff.name_en as name', 'staff.picture as picture', 'staff.title_en as title', 'staff.description_en as description')->get();
+            $staff = $staff->select('staff.name_en as name', 'staff.picture as picture', 'staff.title_en as title', 'staff.description_en as description', 'staff.created_at as created_at', 'staff.updated_at as updated_at')->get();
         }
 
         return $staff;
@@ -319,9 +307,9 @@ class ContentService
     {
         $articles = DB::table('articles');
         if ($languageId == 1) {
-            $articles = $articles->select('articles.img as image','articles.title_hu as title', 'articles.text_hu as text')->get();
+            $articles = $articles->select('articles.img as image','articles.title_hu as title', 'articles.text_hu as text', 'articles.created_at as created_at', 'articles.updated_at as updated_at')->get();
         } else {
-            $articles = $articles->select('articles.img as image','articles.title_en as title', 'articles.text_en as text')->get();
+            $articles = $articles->select('articles.img as image','articles.title_en as title', 'articles.text_en as text', 'articles.created_at as created_at', 'articles.updated_at as updated_at')->get();
         }    
 
         return $articles;
@@ -334,13 +322,29 @@ class ContentService
     {
         $events = DB::table('events');
         if ($languageId == 1) {
-            $events = $events->select('events.picture as image','events.name_hu as title', 'events.description_hu as text')->get();
+            $events = $events->select('events.picture as image','events.name_hu as title', 'events.description_hu as text', 'events.created_at as created_at', 'events.updated_at as updated_at')->get();
         } else {
-            $events = $events->select('events.picture as image','events.name_en as title', 'events.description_en as text')->get();
+            $events = $events->select('events.picture as image','events.name_en as title', 'events.description_en as text', 'events.created_at as created_at', 'events.updated_at as updated_at')->get();
         }    
 
         return $events;
     }
+
+
+
+    /* get the client's stadium tools */
+    public function stadium_tools($languageId)
+    {
+        $stadium_tools = DB::table('stadium_tools');
+        if ($languageId == 1) {
+            $stadium_tools = $stadium_tools->select('stadium_tools.picture as image','stadium_tools.name_hu as title', 'stadium_tools.text_hu as text', 'stadium_tools.info_hu as info', 'stadium_tools.created_at as created_at', 'stadium_tools.updated_at as updated_at')->get();
+        } else {
+            $stadium_tools = $estadium_tools->select('stadium_tools.picture as image','estadium_tools.name_en as title', 'stadium_tools.text_en as text', 'stadium_tools.info_en as info', 'stadium_tools.created_at as created_at', 'stadium_tools.updated_at as updated_at')->get();
+        }    
+
+        return $stadium_tools;
+    }
+
 
 
     /* get the client's front officers */
@@ -348,9 +352,9 @@ class ContentService
     {
         $front_office = DB::table('front_office');
             if ($languageId == 1) {
-                $front_office = $front_office->select('front_office.name_hu as name', 'front_office.picture as picture', 'front_office.title_hu as title', 'front_office.description_hu as description')->get();
+                $front_office = $front_office->select('front_office.name_hu as name', 'front_office.picture as picture', 'front_office.title_hu as title', 'front_office.description_hu as description', 'front_office.created_at as created_at', 'front_office.updated_at as updated_at')->get();
             } else {
-                $front_office = $front_office->select('front_office.name_en as name', 'front_office.picture as picture', 'front_office.title_en as title', 'front_office.description_en as description')->get();
+                $front_office = $front_office->select('front_office.name_en as name', 'front_office.picture as picture', 'front_office.title_en as title', 'front_office.description_en as description', 'front_office.created_at as created_at', 'front_office.updated_at as updated_at')->get();
             }
 
         return $front_office;
@@ -382,16 +386,7 @@ class ContentService
             ->leftJoin('teams', 'standings.team_id', '=', 'teams.id')
             ->orderBy('competition_id', 'desc')
             ->orderBy('sort')
-            ->select(
-                'standings.competition_id as competition_id',
-                'teams.id as id',
-                'standings.sort as sort',
-                'standings.points as points',
-                'teams.name as name',
-                // 'teams.nickname as nickname',
-                'teams.logo as logo',
-                'teams.main_color as color',
-                'teams.secondary_color as secondary_color'
+            ->select('standings.competition_id as competition_id', 'teams.id as id', 'standings.sort as sort', 'standings.points as points', 'teams.name as name', 'teams.logo as logo', 'teams.main_color as color', 'teams.secondary_color as secondary_color'
             )->get();
 
         return $standings;
@@ -432,9 +427,9 @@ class ContentService
     {
         $talents = DB::table('talents');
         if ($languageId == 1) {
-            $talents = $talents->select('talents.name_hu as name', 'talents.background as background', 'talents.profile_picture as profile_picture', 'talents.big_picture as big_picture', 'talents.description_hu as description')->get();
+            $talents = $talents->select('talents.name_hu as name', 'talents.background as background', 'talents.profile_picture as profile_picture', 'talents.big_picture as big_picture', 'talents.description_hu as description', 'talents.created_at as created_at','talents.updated_at as updated_at')->get();
         } else {
-            $talents = $talents->select('talents.name_hu as name', 'talents.background as background', 'talents.profile_picture as profile_picture', 'talents.big_picture as big_picture', 'talents.description_hu as description')->get();
+            $talents = $talents->select('talents.name_hu as name', 'talents.background as background', 'talents.profile_picture as profile_picture', 'talents.big_picture as big_picture', 'talents.description_hu as description', 'talents.created_at as created_at','talents.updated_at as updated_at')->get();
         }
 
         return $talents;
@@ -533,6 +528,33 @@ class ContentService
         }
 
         return $history;
+    }
+
+
+
+    /* get two random spotify songs */
+    public function spotify()
+    {
+        $spotify = DB::table('spotify')->orderByRaw('RAND()')
+        ->select('artist', 'song', 'album_cover', 'spotify_id')
+        ->take(2)->get();
+
+        return $spotify;
+    }
+
+
+
+    /* get fan's help questions and answers */
+    public function fanshelp($languageId, $matchId)
+    {
+        $fanshelp = DB::table('live_action_happening as fanshelp')->where('match_id', $matchId)->where('able_to_vote', 1);
+        if ($languageId == 1) {
+            $fanshelp = $fanshelp->select('fanshelp.id as question_id', 'fanshelp.text_hu as text', 'fanshelp.minute as minute', 'fanshelp.agree as agree', 'fanshelp.disagree as disagree', 'fanshelp.canttell as canttell')->get();
+        } else {
+            $fanshelp = $fanshelp->select('fanshelp.id as question_id', 'fanshelp.text_hu as text', 'fanshelp.minute as minute', 'fanshelp.agree as agree', 'fanshelp.disagree as disagree', 'fanshelp.canttell as canttell')->get();
+        }
+
+        return $fanshelp;
     }
 
 }

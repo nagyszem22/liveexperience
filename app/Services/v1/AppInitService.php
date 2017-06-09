@@ -298,6 +298,9 @@ class AppInitService extends Service
         /* add client's events */
         $content['events'] = $this->content->events($languageId);
 
+        /* add stadium tools */
+        $content['stadium_tools'] = $this->content->stadium_tools($languageId);
+
         /* add client's team details */
         $team = $this->content->team(0);
         $content['club_zone']['team'] = $team;

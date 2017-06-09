@@ -31,6 +31,7 @@ class PutDataController extends Controller
         $validator = Validator::make($request->all(), [
         	'name'  => 'required',
             'email' => 'required|email',
+            'subject' => 'required',
             'text'  => 'required',
         ]);
 
@@ -107,6 +108,55 @@ class PutDataController extends Controller
 
         /* call message the team method */
         $answer = $this->put->predictAndWin($request);
+
+        /* return answer */
+        return response()->json($answer);
+    }
+
+
+    /* spotify */
+    public function spotify(Request $request)
+    {
+        /* validate request */
+        $validator = Validator::make($request->all(), [
+            'spotify_id' => 'required',
+            'artist'  => 'required',
+            'song' => 'required',
+            'album_cover' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $this->error->formValidationFailed($validator->messages()),
+            200);
+        }
+
+        /* call message the team method */
+        $answer = $this->put->spotify($request);
+
+        /* return answer */
+        return response()->json($answer);
+    }
+
+
+
+    /* fanshelp */
+    public function fanshelp(Request $request)
+    {
+        /* validate request */
+        $validator = Validator::make($request->all(), [
+            'question_id' => 'required|numeric|exists:live_action_happening,id',
+            'vote' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $this->error->formValidationFailed($validator->messages()),
+            200);
+        }
+
+        /* call message the team method */
+        $answer = $this->put->fanshelp($request);
 
         /* return answer */
         return response()->json($answer);

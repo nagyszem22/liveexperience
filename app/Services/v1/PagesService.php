@@ -45,11 +45,25 @@ class PagesService extends Service
         return $this->createResponse($this->content->predict_and_win($device->language_id, $device->match_id));
     }
 
-
-
     /* predict and win history */
     public function predictAndWinHistory($device)
     {
         return $this->createResponse($this->content->predict_and_win_history($device->language_id, $device->user_id));
+    }
+
+
+
+    /* spotify */
+    public function spotify()
+    {
+        return $this->createResponse($this->content->spotify());
+    }
+
+
+
+    /* fans help */
+    public function fanshelp($device)
+    {
+        return $this->createResponse($this->content->fanshelp($device->language_id, $device->match_id));
     }
 }
