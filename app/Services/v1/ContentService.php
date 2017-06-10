@@ -339,7 +339,7 @@ class ContentService
         if ($languageId == 1) {
             $stadium_tools = $stadium_tools->select('stadium_tools.picture as image','stadium_tools.name_hu as title', 'stadium_tools.text_hu as text', 'stadium_tools.info_hu as info', 'stadium_tools.created_at as created_at', 'stadium_tools.updated_at as updated_at')->get();
         } else {
-            $stadium_tools = $stadium_tools->select('stadium_tools.picture as image','estadium_tools.name_en as title', 'stadium_tools.text_en as text', 'stadium_tools.info_en as info', 'stadium_tools.created_at as created_at', 'stadium_tools.updated_at as updated_at')->get();
+            $stadium_tools = $stadium_tools->select('stadium_tools.picture as image','stadium_tools.name_en as title', 'stadium_tools.text_en as text', 'stadium_tools.info_en as info', 'stadium_tools.created_at as created_at', 'stadium_tools.updated_at as updated_at')->get();
         }    
 
         return $stadium_tools;
