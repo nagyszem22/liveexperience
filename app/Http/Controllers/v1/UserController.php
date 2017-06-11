@@ -73,6 +73,15 @@ class UserController extends Controller
 
 
 
+    /* make user log in */
+    public function logout(Request $request) 
+    {
+        /* return answer */
+        return response()->json($this->user->logout($request->attributes->get('device')));
+    }
+
+
+
     /* register the current user */
     public function registration(Request $request) 
     {
@@ -112,6 +121,29 @@ class UserController extends Controller
 
         /* call registration method */
         $answer = $this->user->passwordReset($request);
+
+        /* return answer */
+        return response()->json($answer);
+    }
+
+
+
+    /* change language */
+    public function changeLanguage(Request $request) 
+    {
+        /* validate request */
+        $validator = Validator::make($request->all(), [
+            'language_id'  => 'required|numeric|exists:languages,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $this->error->formValidationFailed($validator->messages()),
+            200);
+        }
+
+        /* call change language method */
+        $answer = $this->user->changeLanguage($request);
 
         /* return answer */
         return response()->json($answer);

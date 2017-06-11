@@ -25,8 +25,10 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
     /* app user routes */
     Route::post('user/ticket', ['middleware' => 'verified', 'uses' => 'v1\UserController@ticket']);
     Route::post('user/login', ['middleware' => 'auth', 'uses' => 'v1\UserController@login']);
+    Route::get('user/logout', ['middleware' => 'loggedin', 'uses' => 'v1\UserController@logout']);
     Route::post('user/registration', ['middleware' => 'auth', 'uses' => 'v1\UserController@registration']);
-    Route::post('user/passwordreset', ['middleware' => 'auth', 'uses' => 'v1\UserController@passwordReset']);
+    Route::post('user/changepassword', ['middleware' => 'auth', 'uses' => 'v1\UserController@passwordReset']);
+    Route::post('user/changelanguage', ['middleware' => 'auth', 'uses' => 'v1\UserController@changeLanguage']);
 
 
     /* app sofa fan routes */

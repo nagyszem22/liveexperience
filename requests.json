@@ -327,7 +327,7 @@
 		"name": "successfull request"
 	},
 	"content": {
-		"answer": "User has successfully logged out."
+		"answer": "User has been successfully logged out."
 	}
 }
 
@@ -377,6 +377,33 @@
 	},
 	"content": {
 		"answer": "Password has successfully changed."
+	}
+}
+
+
+
+
+//////////////////////////////////////////////////
+// CHANGE LANGUAGE
+//------------------------------------------------
+// url: api/v1/user/changelanguage
+// type: GET
+// errors: 1
+//////////////////////////////////////////////////
+
+/* Request */
+{
+	"language_id": 2 // 1 - Hungarian, 2 - English
+}
+
+/* Response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"answer": "Language of the user has been successfully changed."
 	}
 }
 

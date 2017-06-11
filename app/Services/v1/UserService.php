@@ -106,6 +106,18 @@ class UserService extends Service
 
 
 
+	/* Make current user log out */
+	public function logout($device) 
+	{
+		/* send the response back */
+		DB::table('device_tokens')->where('id', $device->id)->update(['logged_in' => 0]);
+		return $this->createResponse([ 
+			"app_content" => "User has been successfully logged out."
+		]);
+	}
+
+
+
 	public function registration($request)
 	{
 		/* define input fields */
@@ -141,10 +153,18 @@ class UserService extends Service
 	}
 
 
-	/* Make current user log out */
-	public function logout($deviceToken) 
+
+	public function changeLanguage($request)
 	{
-		
+		/* define input fields */
+		$input = $request->input();
+		$device = $request->attributes->get('device');
+
+		/* send the response back */
+		DB::table('device_tokens')->where('id', $device->id)->update(['language_id' => $input['language_id']]);
+		return $this->createResponse([
+			"app_content" => "Language of the user has been successfully changed."
+		]);
 	}
 
 
