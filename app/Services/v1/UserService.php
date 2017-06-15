@@ -79,7 +79,9 @@ class UserService extends Service
 
 			/* if relation exists then send response */
 			return $this->createResponse([
-				"is_user" => 1
+				"is_user" => 1,
+				"ticket" => $input['ticket'],
+				"email" => $input['email']
 			]);
 		}
 	}
