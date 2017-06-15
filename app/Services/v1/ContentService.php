@@ -575,11 +575,11 @@ class ContentService
     /* get fan's help questions and answers */
     public function fanshelp($languageId, $matchId)
     {
-        $fanshelp = DB::table('live_action_happening as fanshelp')->where('match_id', $matchId)->where('able_to_vote', 1);
+        $fanshelp = DB::table('live_action_happening as fanshelp')->where('match_id', $matchId)->where('able_to_vote', 1)->orderBy('id', 'desc');
         if ($languageId == 1) {
             $fanshelp = $fanshelp->select('fanshelp.id as question_id', 'fanshelp.text_hu as text', 'fanshelp.minute as minute', 'fanshelp.agree as agree', 'fanshelp.disagree as disagree', 'fanshelp.canttell as canttell')->get();
         } else {
-            $fanshelp = $fanshelp->select('fanshelp.id as question_id', 'fanshelp.text_hu as text', 'fanshelp.minute as minute', 'fanshelp.agree as agree', 'fanshelp.disagree as disagree', 'fanshelp.canttell as canttell')->get();
+            $fanshelp = $fanshelp->select('fanshelp.id as question_id', 'fanshelp.text_en as text', 'fanshelp.minute as minute', 'fanshelp.agree as agree', 'fanshelp.disagree as disagree', 'fanshelp.canttell as canttell')->get();
         }
 
         return $fanshelp;

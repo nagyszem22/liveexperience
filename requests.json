@@ -1459,17 +1459,6 @@
 	]
 }
 
-/* Response */
-{
-	"status": {
-		"code": 0,
-		"name": "successfull request"
-	},
-	"content": {
-		"answer": "Song has been successfully saved or updated."
-	}
-}
-
 
 
 //////////////////////////////////////////////////
@@ -1487,6 +1476,75 @@
 	"album_cover": "Piano Man (Album)",
 	"artist": "Billy Joel"
 }
+
+/* Response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"answer": "Song has been successfully saved or updated."
+	}
+}
+
+
+
+//////////////////////////////////////////////////
+// FANS HELP
+//------------------------------------------------
+// url: api/v1/fanshelp/get
+// type: POST
+// errors: 1,2
+//////////////////////////////////////////////////
+
+/* Response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": [
+		{
+			"question_id": 2,
+			"text": "This is a question.",
+			"minute": "M\u00e9rk\u0151z\u00e9s el\u0151tt",
+			"agree": 1,
+			"disagree": 0,
+			"canttell":0
+		},
+		"etc ..."
+	]
+}
+
+
+
+//////////////////////////////////////////////////
+// FANS HELP
+//------------------------------------------------
+// url: api/v1/fanshelp/post
+// type: POST
+// errors: 1,2
+//////////////////////////////////////////////////
+
+/* Request */
+{
+	"question_id": 2,
+	"vote": "agree" // options: agree, disagree, canttell
+}
+
+/* Response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"answer": "The vote has been successfully saved."
+	}
+}
+
+
 
 
 
