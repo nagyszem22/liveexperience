@@ -74,9 +74,9 @@ class UserService extends Service
 			/* if relation doesn't exist then it's not the users ticket */
 			if ($relation == null) {
 				DB::table('users_to_ticket')->insert(['user' => $user->id, 'ticket' => $ticket->id]);
-				DB::table('device_tokens')->where('id', $device->id)->update(['expires' => $ticket->finish, 'match_id' => $ticket->match_id]);
+				DB::table('device_tokens')->where('id', $device->id)->update(['user_id' => $user->id, 'expires' => $ticket->finish, 'match_id' => $ticket->match_id]);
 			} else {
-				DB::table('device_tokens')->where('id', $device->id)->update(['expires' => $ticket->finish, 'match_id' => $ticket->match_id]);
+				DB::table('device_tokens')->where('id', $device->id)->update(['user_id' => $user->id, 'expires' => $ticket->finish, 'match_id' => $ticket->match_id]);
 			}
 
 			/* if relation exists then send response */
