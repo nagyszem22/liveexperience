@@ -66,4 +66,13 @@ class PagesService extends Service
     {
         return $this->createResponse($this->content->fanshelp($device->language_id, $device->match_id));
     }
+
+
+
+    /* fans help */
+    public function mvp($device)
+    {
+        $teamId = DB::table('teams')->where('owner_club', 1)->first()->id;
+        return $this->createResponse($this->content->mvp($device->match_id, $teamId));
+    }
 }

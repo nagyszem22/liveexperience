@@ -68,4 +68,12 @@ class PagesController extends Controller
        /* return answer */
         return response()->json($this->page->fanshelp($request->attributes->get('device')));
     }
+
+
+
+    public function mvp(Request $request)
+    {
+       /* return answer */
+        return response()->json($this->page->mvp($request->attributes->get('device')));
+    }
 }

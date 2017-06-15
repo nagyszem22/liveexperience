@@ -75,6 +75,34 @@ class ContentService
     }
 
 
+
+    /* get the line up of the supported team */
+    public function mvp($matchId, $teamId)
+    {
+        $mvpPage = DB::table('mvp_question')->where('match_id', $matchId)->first();
+        $mvp = DB::table('line_up')
+                ->join('players', 'line_up.player', '=', 'players.id')
+                ->where('match_id', $matchId)
+                ->where('team', $teamId)
+                ->select(
+                    'line_up.role as role',
+                    'line_up.team as team_id',
+                    'line_up.change_status as changed',
+                    'players.name as name', 
+                    'players.number as number', 
+                    'players.picture as picture', 
+                    'players.birthdate as birthday'
+                )->get();
+
+        $output = array(
+            'page' => $mvpPage,
+            'line_up' => $mvp
+        );
+
+        return $output;
+    }
+
+
     /* get modules of the current match in the current time (main menu items) */
     public function modules($matchId, $competitionId)
     {

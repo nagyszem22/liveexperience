@@ -1144,7 +1144,18 @@
 		"name":"successfull request"
 	},
 	"content": {
-		"players": [
+		"page": {
+			"id": 1,
+			"logo": "http:\/\/www.csakfoci.ticketingexp.com\/storage\/images\/csakfoci\/mvp\/1280px-gatorade-logo-svg.png",
+			"description": "Sponsored by Gatorade",
+			"picture": "http:\/\/www.csakfoci.ticketingexp.com\/storage\/images\/csakfoci\/mvp\/1280px-gatorade-logo-svg.png",
+			"color": "499D1E",
+			"match_id": 1,
+			"active": 0,
+			"created_at": "2017-06-08 09:08:44",
+			"updated_at": "2017-06-08 09:08:44"
+		},
+		"line_up": [
 			{
 				"id": 1,
 				"name": "Andric Nemanja ",
@@ -1171,7 +1182,7 @@
 //////////////////////////////////////////////////
 // PLAYER OF THE MATCH POST
 //------------------------------------------------
-// url: mvp/post
+// url: api/v1/mvp/post
 // type: POST
 // errors: 1,2
 //////////////////////////////////////////////////

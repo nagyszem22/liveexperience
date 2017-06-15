@@ -61,7 +61,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
     Route::post('spotify/post', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@spotify']);
 
 
-    /* ??? player of the match ??? */
+    /* player of the match */
     Route::get('mvp/get', ['middleware' => 'loggedin', 'uses' => 'v1\PagesController@mvp']);
     Route::post('mvp/post', ['middleware' => 'loggedin', 'uses' => 'v1\PutDataController@mvp']);
 

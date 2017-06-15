@@ -60,7 +60,9 @@ class UserService extends Service
 				DB::table('users_to_ticket')->insert(['user' => $userId, 'ticket' => $ticket->id]);
 				
 				return $this->createResponse([
-					"is_user" => 0
+					"is_user" => 0,
+					"ticket" => $input['ticket'],
+					"email" => $input['email']
 				]);
 			}
 		} 
