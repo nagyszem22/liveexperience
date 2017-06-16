@@ -27,7 +27,8 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
     Route::post('user/login', ['middleware' => 'auth', 'uses' => 'v1\UserController@login']);
     Route::get('user/logout', ['middleware' => 'loggedin', 'uses' => 'v1\UserController@logout']);
     Route::post('user/registration', ['middleware' => 'auth', 'uses' => 'v1\UserController@registration']);
-    Route::post('user/changepassword', ['middleware' => 'auth', 'uses' => 'v1\UserController@passwordReset']);
+    Route::post('user/forgotpassword', ['middleware' => 'auth', 'uses' => 'v1\UserController@passwordForgot']);
+    Route::post('user/changepassword', ['middleware' => 'auth', 'uses' => 'v1\UserController@passwordChange']);
     Route::post('user/changelanguage', ['middleware' => 'auth', 'uses' => 'v1\UserController@changeLanguage']);
 
 
@@ -72,6 +73,6 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
 
 
     /* the mall routes */
-    Route::post('mall/get', ['middleware' => 'verified', 'uses' => 'v1\PagesController@mall']);
+    Route::post('themall/post', ['middleware' => 'verified', 'uses' => 'v1\PutDataController@mall']);
 
 });

@@ -355,6 +355,32 @@
 
 
 //////////////////////////////////////////////////
+// FORGOT PASSWORD
+//------------------------------------------------
+// url: api/v1/user/forgotpassword
+// type: GET
+// errors: 1
+//////////////////////////////////////////////////
+
+/* Request */
+{
+	"email": "mrs@kovacs.hu"
+}
+
+/* Response */
+{
+	"status": {
+		"code": 0,
+		"name": "successfull request"
+	},
+	"content": {
+		"answer": "Reset password email has been successfuly sent."
+	}
+}
+
+
+
+//////////////////////////////////////////////////
 // CHANGE PASSWORD
 //------------------------------------------------
 // url: api/v1/user/changepassword
@@ -364,7 +390,7 @@
 
 /* Request */
 {
-	"reminder_token": "DFsdf45sd5D",
+	"forgot_pasword_token": "DFsdf45sd5D", // optional, do not use this, when the user is already logged in and change his/her password from the matchday
 	"password": "encoded_password",
 	"password_confirmation": "encoded_password"
 }
@@ -376,7 +402,7 @@
 		"name": "successfull request"
 	},
 	"content": {
-		"answer": "Password has successfully changed."
+		"answer": "Password has successfully reset."
 	}
 }
 
@@ -1206,9 +1232,9 @@
 
 
 //////////////////////////////////////////////////
-// THE MALL GET
+// THE MALL POST
 //------------------------------------------------
-// url: api/v1/themall/get
+// url: api/v1/themall/post
 // type: POST
 // errors: 1,2
 //////////////////////////////////////////////////

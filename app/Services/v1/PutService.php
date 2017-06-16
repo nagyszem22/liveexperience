@@ -3,6 +3,7 @@
 namespace App\Services\v1;
 
 use App\Services\v1\ErrorService;
+use App\Services\v1\ContentService;
 
 use DB;
 
@@ -13,9 +14,10 @@ class PutService extends Service
 {    
     /* Define service provider(s) */
     protected $error;
-    public function __construct(ErrorService $error)
+    public function __construct(ErrorService $error, ContentService $content)
     {
         $this->error = $error;
+        $this->content = $content;
     }
 
 
@@ -136,5 +138,19 @@ class PutService extends Service
         }
 
         return $this->createResponse(['answer' => 'The vote has been successfully saved.']);
+    }
+
+
+
+    /* mall */
+    public function mall($request)
+    {
+        /* get the device of the current user and validate it */
+        $input = $request->input();
+        $device = $request->attributes->get('device');
+
+        // @todo save email and check coupon logic comes here
+
+        return $this->createResponse(['coupons' => $this->content->mall($device->language_id)]);
     }
 }

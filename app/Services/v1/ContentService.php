@@ -585,4 +585,19 @@ class ContentService
         return $fanshelp;
     }
 
+
+
+    /* get the mall content */
+    public function mall($languageId)
+    {
+        $fanshelp = DB::table('the_mall');
+        if ($languageId == 1) {
+            $fanshelp = $fanshelp->select('the_mall.id as id', 'the_mall.description_hu as description', 'the_mall.picture as picture', 'the_mall.picture2 as picture2', 'the_mall.code as code', 'the_mall.start as start', 'the_mall.finish as finish')->get();
+        } else {
+            $fanshelp = $fanshelp->select('the_mall.id as id', 'the_mall.description_en as description', 'the_mall.picture as picture', 'the_mall.picture2 as picture2', 'the_mall.code as code', 'the_mall.start as start', 'the_mall.finish as finish')->get();
+        }
+
+        return $fanshelp;
+    }
+
 }

@@ -161,4 +161,27 @@ class PutDataController extends Controller
         /* return answer */
         return response()->json($answer);
     }
+
+
+
+    public function mall(Request $request)
+    {
+        /* validate request */
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'coupon' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $this->error->formValidationFailed($validator->messages()),
+            200);
+        }
+
+        /* call message the team method */
+        $answer = $this->put->mall($request);
+
+        /* return answer */
+        return response()->json($answer);
+    }
 }

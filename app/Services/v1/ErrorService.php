@@ -107,5 +107,15 @@ class ErrorService
             ]
         ];
     }
+
+    public function userDoesNotExist() 
+    {
+        return [
+            "status" => [
+                "code" => 11,
+                "name" => "user does not exist"
+            ]
+        ];
+    }
     
 }

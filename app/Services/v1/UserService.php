@@ -116,7 +116,7 @@ class UserService extends Service
 	public function logout($device) 
 	{
 		/* send the response back */
-		DB::table('device_tokens')->where('id', $device->id)->update(['logged_in' => 0]);
+		DB::table('device_tokens')->where('id', $device->id)->update(['logged_in' => 0, 'user_id' => 0]);
 		return $this->createResponse([ 
 			"app_content" => "User has been successfully logged out."
 		]);
@@ -142,19 +142,52 @@ class UserService extends Service
 
 
 
-	public function passwordReset($request)
+	public function passwordForgot($input)
+	{
+		/* get the user details and update forgot password */
+		$token = str_random(16);
+		$user = DB::table('users')->where('email', $input['email'])->first();
+		DB::table('users')->where('email', $input['email'])->update(['forgot_password' => $token]);
+
+		/* create email message */
+		$message = "Hey, you just forgot you password. No worries, just click here, and we do the rest: http://handyurl.com/".$token;
+		DB::table('emails')->insert(['sender_email' => $input['email'], 'subject' => 'forgot password', 'text' => $message]);
+
+		/* send the response back */
+		return $this->createResponse([
+			"app_content" => 'Reset password email has been successfuly sent.'
+		]);
+	}
+
+
+
+	public function passwordChange($request)
 	{
 		/* define input fields */
 		$input = $request->input();
 		$device = $request->attributes->get('device');
 
-		/* get the user details */
-		DB::table('users')->where('id', $device->user_id)->update(['password' => $input['password']]);
+		/* if user forgot his/her email address */
+		if (isset($input['forgot_password_token'])) {
+			$user = DB::table('users')->where(['forgot_password' => $input['forgot_password_token']])->first();
+			if (!$user) {
+				return $this->error->userDoesNotExist();
+			}
+		
+		/* if user update hie/her password while he or she is logged in */
+		} else {
+			$user = DB::table('users')->where('id', $device->user_id)->first();
+			if (!$user) {
+				return $this->error->userDoesNotExist();
+			}
+		}
+
+		/* update the password of the user */
+		DB::table('users')->where('id', $user->id)->update(['password' => $input['password']]);
 
 		/* send the response back */
-		DB::table('device_tokens')->where('id', $device->id)->update(['logged_in' => 1]);
 		return $this->createResponse([
-			"app_content" => $this->appInit->initMatchDay($device->match_id, $device->language_id)
+			"app_content" => 'Password has been successfully reset.'
 		]);
 	}
 

@@ -106,11 +106,11 @@ class UserController extends Controller
 
 
     /* password reset */
-    public function passwordReset(Request $request) 
+    public function passwordForgot(Request $request) 
     {
         /* validate request */
         $validator = Validator::make($request->all(), [
-            'email' => 'required|confirmed'
+            'email' => 'required|email|exists:users,email'
         ]);
 
         if ($validator->fails()) {
@@ -120,7 +120,30 @@ class UserController extends Controller
         }
 
         /* call registration method */
-        $answer = $this->user->passwordReset($request);
+        $answer = $this->user->passwordForgot($request->input());
+
+        /* return answer */
+        return response()->json($answer);
+    }
+
+
+
+    /* change password */
+    public function passwordChange(Request $request) 
+    {
+        /* validate request */
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                $this->error->formValidationFailed($validator->messages()),
+            200);
+        }
+
+        /* call registration method */
+        $answer = $this->user->passwordChange($request);
 
         /* return answer */
         return response()->json($answer);
