@@ -54,11 +54,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
+            'host' => env('DB_HOST', 'le-london-main-cluster.cluster-ca5d9szoeb52.eu-west-2.rds.amazonaws.com'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'experience_main'),
-            'username' => env('DB_USERNAME', 'api_user'),
-            'password' => env('DB_PASSWORD', 'O0VFFxjXBn4yrFQa'),
+            'username' => env('DB_USERNAME', 'liveExperience'),
+            'password' => env('DB_PASSWORD', 'qxJeUUuSDQXn78DH'),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
