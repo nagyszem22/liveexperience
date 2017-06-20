@@ -150,6 +150,9 @@ class AppInitService extends Service
         /* live posts from users */
         $content['live_feed'] = $live_feed;
 
+        /* add stadium tools */
+        $content['stadium_tools'] = $this->content->stadium_tools($languageId);
+
         /* message the team main settings */
         $content['message_the_team'] = $message_the_team;
 
@@ -297,9 +300,6 @@ class AppInitService extends Service
 
         /* add client's events */
         $content['events'] = $this->content->events($languageId);
-
-        /* add stadium tools */
-        $content['stadium_tools'] = $this->content->stadium_tools($languageId);
 
         /* add client's team details */
         $team = $this->content->team(0);

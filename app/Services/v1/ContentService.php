@@ -172,6 +172,7 @@ class ContentService
             ->select(
                 'games.name as name', 
                 'games.logo as logo',
+                'games.icon as icon',
                 'games.place as place',
                 'game_time.start as start',
                 'game_time.finish as finish'
