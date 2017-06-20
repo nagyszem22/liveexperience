@@ -177,8 +177,25 @@ class ContentService
                 'game_time.finish as finish'
             )->get();
 
-        $banners = DB::table('banners')
+       /* $banners = DB::table('banners')
             ->leftJoin('banner_time as time', 'banners.id', '=', 'time.banner')
+            ->select(
+                'banners.name as name',
+                'banners.picture as picture',
+                'banners.link as link',
+                'banners.basic as basic',
+                'time.start as start',
+                'time.finish as finish',
+                'time.break_point_start as break_point_start',
+                'time.break_point_finish as break_point_finish',
+                'time.competition as competition',
+                'time.active as active',
+                'time.place as place',
+                'time.match_id as match'
+            )
+            ->get();*/
+        $banners = DB::table('banner_time as time')
+            ->leftJoin('banners', 'banners.id', '=', 'time.banner')
             ->select(
                 'banners.name as name',
                 'banners.picture as picture',
