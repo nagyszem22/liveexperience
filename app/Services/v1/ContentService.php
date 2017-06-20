@@ -191,7 +191,8 @@ class ContentService
                 'time.competition as competition',
                 'time.active as active',
                 'time.match_id as match'
-            )->get();
+            )
+            ->get();
 
         /* live experience games */
         $output['games'] = $games;
@@ -203,12 +204,13 @@ class ContentService
             $filteredBanner['name'] = $banner->name;
             $filteredBanner['picture'] = $banner->picture;
             $filteredBanner['link'] = $banner->link;
+            $filteredBanner['place'] = $banner->place;
 
             // set current sponsors
             if ($banner->active) {
                 $output['banner'] = $filteredBanner;
                 break;
-            } elseif ($banner->match == $matchId) {
+            } elseif ($banner->match == $matchId || $banner->match == 0) {
                 // @todo make time calculation !!!
                 $output['banner'] = $filteredBanner;
                 break;
