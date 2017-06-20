@@ -199,6 +199,8 @@ class ContentService
         $output['games'] = $games;
 
         /* live experience banner */
+        $count = 0;
+        
         // @todo make time calculations !!!
         foreach ($banners as $banner) {
             // set filtered sponsor
@@ -206,23 +208,27 @@ class ContentService
             $filteredBanner['picture'] = $banner->picture;
             $filteredBanner['link'] = $banner->link;
             $filteredBanner['place'] = $banner->place;
-
             // set current sponsors
             if ($banner->active) {
-                $output['banner'] = $filteredBanner;
+                $output['banner'][$count] = $filteredBanner;
+                $count++;
                 break;
             } elseif ($banner->match == $matchId || $banner->match == 0) {
                 // @todo make time calculation !!!
-                $output['banner'] = $filteredBanner;
+                $output['banner'][$count] = $filteredBanner;
+                $count++;
                 break;
             } elseif ($banner->competition == $competitionId) {
                 // @todo make time calculation !!!
-                $output['banner'] = $filteredBanner;
+                $output['banner'][$count] = $filteredBanner;
+                $count++;
                 break;
             } elseif ($banner->basic) {
-                $output['banner'] = $filteredBanner;
+                $output['banner'][$count] = $filteredBanner;
+                $count++;
                 break;
             }
+            
         }
 
         return $output;
