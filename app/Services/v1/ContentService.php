@@ -56,15 +56,10 @@ class ContentService
                 'line_up.change_status as changed',
                 'players.name as name', 
                 'players.number as number', 
-<<<<<<< HEAD
                 'players.picture as picture',
                 'players.stat_picture as stat_picture', 
                 'players.birthdate as birthday'
-=======
-                'players.picture as picture', 
-                'players.birthdate as birthday',
-                'players.stat_picture as stat_picture'
->>>>>>> 689ef9c5df3421f20c559d3dc592bae23885324a
+
             )->get();
 
         $output = array('home' => [], 'away' => []);
