@@ -236,21 +236,21 @@ class ContentService
             if ($banner->active) {
                 $output['banner'][$count] = $filteredBanner;
                 $count++;
-                break;
+               // break;
             } elseif ($banner->match == $matchId || $banner->match == 0) {
                 // @todo make time calculation !!!
                 $output['banner'][$count] = $filteredBanner;
                 $count++;
-                break;
+                //break;
             } elseif ($banner->competition == $competitionId) {
                 // @todo make time calculation !!!
                 $output['banner'][$count] = $filteredBanner;
                 $count++;
-                break;
+                //break;
             } elseif ($banner->basic) {
                 $output['banner'][$count] = $filteredBanner;
                 $count++;
-                break;
+                //break;
             }
             
         }
