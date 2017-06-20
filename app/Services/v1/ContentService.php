@@ -183,6 +183,7 @@ class ContentService
                 'banners.name as name',
                 'banners.picture as picture',
                 'banners.link as link',
+                'banners.place as place',
                 'banners.basic as basic',
                 'time.start as start',
                 'time.finish as finish',
