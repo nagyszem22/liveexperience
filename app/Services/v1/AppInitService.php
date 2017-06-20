@@ -158,6 +158,9 @@ class AppInitService extends Service
 
         /* message the team main settings */
         $content['message_the_team'] = $message_the_team;
+        
+        /* add articles */
+        $content['articles'] = $this->content->articles($languageId);
 
         /* return content */
 		return $content;
