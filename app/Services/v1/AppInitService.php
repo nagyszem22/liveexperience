@@ -148,7 +148,7 @@ class AppInitService extends Service
         $content['live_experience'] = $live_experience;
         
         /* add stadium tools */
-        $content['live_experience']['stadium_tools'] = $this->content->stadium_tools($languageId);
+        //$content['live_experience']['stadium_tools'] = $this->content->stadium_tools($languageId);
 
         /* live posts from users */
         $content['live_feed'] = $live_feed;
