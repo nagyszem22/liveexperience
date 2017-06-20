@@ -57,7 +57,8 @@ class ContentService
                 'players.name as name', 
                 'players.number as number', 
                 'players.picture as picture', 
-                'players.birthdate as birthday'
+                'players.birthdate as birthday',
+                'players.stat_picture as stat_picture'
             )->get();
 
         $output = array('home' => [], 'away' => []);
