@@ -56,9 +56,15 @@ class ContentService
                 'line_up.change_status as changed',
                 'players.name as name', 
                 'players.number as number', 
+<<<<<<< HEAD
                 'players.picture as picture',
                 'players.stat_picture as stat_picture', 
                 'players.birthdate as birthday'
+=======
+                'players.picture as picture', 
+                'players.birthdate as birthday',
+                'players.stat_picture as stat_picture'
+>>>>>>> 689ef9c5df3421f20c559d3dc592bae23885324a
             )->get();
 
         $output = array('home' => [], 'away' => []);
@@ -178,7 +184,7 @@ class ContentService
                 'game_time.finish as finish'
             )->get();
 
-        $banners = DB::table('banners')
+       /* $banners = DB::table('banners')
             ->leftJoin('banner_time as time', 'banners.id', '=', 'time.banner')
             ->select(
                 'banners.name as name',
@@ -191,36 +197,62 @@ class ContentService
                 'time.break_point_finish as break_point_finish',
                 'time.competition as competition',
                 'time.active as active',
+                'time.place as place',
                 'time.match_id as match'
-            )->get();
+            )
+            ->get();*/
+        $banners = DB::table('banner_time as time')
+            ->leftJoin('banners', 'banners.id', '=', 'time.banner')
+            ->select(
+                'banners.name as name',
+                'banners.picture as picture',
+                'banners.link as link',
+                'banners.basic as basic',
+                'time.start as start',
+                'time.finish as finish',
+                'time.break_point_start as break_point_start',
+                'time.break_point_finish as break_point_finish',
+                'time.competition as competition',
+                'time.active as active',
+                'time.place as place',
+                'time.match_id as match'
+            )
+            ->get();
 
         /* live experience games */
         $output['games'] = $games;
 
         /* live experience banner */
+        $count = 0;
+        
         // @todo make time calculations !!!
         foreach ($banners as $banner) {
             // set filtered sponsor
             $filteredBanner['name'] = $banner->name;
             $filteredBanner['picture'] = $banner->picture;
             $filteredBanner['link'] = $banner->link;
-
+            $filteredBanner['place'] = $banner->place;
             // set current sponsors
             if ($banner->active) {
-                $output['banner'] = $filteredBanner;
+                $output['banner'][$count] = $filteredBanner;
+                $count++;
                 break;
-            } elseif ($banner->match == $matchId) {
+            } elseif ($banner->match == $matchId || $banner->match == 0) {
                 // @todo make time calculation !!!
-                $output['banner'] = $filteredBanner;
+                $output['banner'][$count] = $filteredBanner;
+                $count++;
                 break;
             } elseif ($banner->competition == $competitionId) {
                 // @todo make time calculation !!!
-                $output['banner'] = $filteredBanner;
+                $output['banner'][$count] = $filteredBanner;
+                $count++;
                 break;
             } elseif ($banner->basic) {
-                $output['banner'] = $filteredBanner;
+                $output['banner'][$count] = $filteredBanner;
+                $count++;
                 break;
             }
+            
         }
 
         return $output;
