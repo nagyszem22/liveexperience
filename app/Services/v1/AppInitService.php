@@ -146,6 +146,9 @@ class AppInitService extends Service
 
         /* live experience games */
         $content['live_experience'] = $live_experience;
+        
+        /* add stadium tools */
+        $content['live_experience']['stadium_tools'] = $this->content->stadium_tools($languageId);
 
         /* live posts from users */
         $content['live_feed'] = $live_feed;
@@ -299,7 +302,7 @@ class AppInitService extends Service
         $content['events'] = $this->content->events($languageId);
 
         /* add stadium tools */
-        $content['stadium_tools'] = $this->content->stadium_tools($languageId);
+        //$content['stadium_tools'] = $this->content->stadium_tools($languageId);
 
         /* add client's team details */
         $team = $this->content->team(0);
