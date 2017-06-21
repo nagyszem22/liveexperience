@@ -82,12 +82,14 @@ class PutService extends Service
         $input = $request->input();
         $device = $request->attributes->get('device');
 
-        /* save predict and win tip in database */
-        DB::table('predict_and_win_user_tipps')->insert([
+       /* save predict and win tip in database */
+		foreach($input as $key => $value){
+			 DB::table('predict_and_win_user_tipps')->insert([
             'user' => $device->user_id,
-            'question' => $input['question_id'],
-            'answer' => $input['answer_id']
-        ]);
+            'question' => $value['question_id'],
+            'answer' => $value['answer_id']
+			]);
+		}
 
         return $this->createResponse(['answer' => 'Answer has been successfully saved.']);
     }

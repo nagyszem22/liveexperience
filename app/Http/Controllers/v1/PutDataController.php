@@ -96,8 +96,8 @@ class PutDataController extends Controller
     {
         /* validate request */
         $validator = Validator::make($request->all(), [
-            'question_id'  => 'required|numeric|exists:predict_and_win_questions,id',
-            'answer_id' => 'required|numeric|exists:predict_and_win_anwers,id'
+            'question_id.*'  => 'required|numeric|exists:predict_and_win_questions,id',
+            'answer_id.*' => 'required|numeric|exists:predict_and_win_anwers,id'
         ]);
 
         if ($validator->fails()) {
