@@ -94,18 +94,20 @@ class PutDataController extends Controller
 
     public function predictAndWin(Request $request)
     {
-        /* validate request */
-        $validator = Validator::make($request->all(), [
-            'question_id.*'  => 'required|numeric|exists:predict_and_win_questions,id',
-            'answer_id.*' => 'required|numeric|exists:predict_and_win_anwers,id'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(
-                $this->error->formValidationFailed($validator->messages()),
-            200);
-        }
-
+       /* validate request */
+    	foreach($request->all() as $key => $value){
+	    	$validator = Validator::make($value, [
+            'question_id'  => 'required|numeric|exists:predict_and_win_questions,id',
+            'answer_id' => 'required|numeric|exists:predict_and_win_anwers,id'
+	        ]);
+	
+	        if ($validator->fails()) {
+	            return response()->json(
+	                $this->error->formValidationFailed($validator->messages()),
+	            200);
+	        }
+    	}
+    	
         /* call message the team method */
         $answer = $this->put->predictAndWin($request);
 
