@@ -20,6 +20,18 @@ class PutService extends Service
         $this->content = $content;
     }
 
+	public function mvp($request){
+		$input = $request->input();
+		$device = $request->attributes->get('device');
+		
+		DB::table('mvp_user_tipps')->insert([
+            'question' => $input['question'], 
+            'answer' => $input['id'],
+            'user' => $device->user_id
+        ]);
+
+        return $this->createResponse(['answer' => 'Your vote has been successfully saved.']);
+	}
 
 
     /* save contact us form response */

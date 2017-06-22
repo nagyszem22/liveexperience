@@ -23,7 +23,26 @@ class PutDataController extends Controller
 		$this->error = $error;
 	}
 
+	/* validate mvp vote and save */
+	public function mvp(Request $request){
+		/* validate request */
+        $validator = Validator::make($request->all(), [
+        	'id'  => 'required|exists:players,id',
+        	'question' => 'required|exists:mvp_question,id'
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json(
+                $this->error->formValidationFailed($validator->messages()),
+            200);
+        }
+
+        /* call contact us method */
+        $answer = $this->put->mvp($request);
+
+        /* return answer */
+        return response()->json($answer);
+	}
 
     public function contactus(Request $request)
     {

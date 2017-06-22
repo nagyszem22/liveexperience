@@ -86,6 +86,7 @@ class ContentService
                 ->join('players', 'line_up.player', '=', 'players.id')
                 ->where('match_id', $matchId)
                 ->where('team', $teamId)
+                 ->whereRaw('((role = "start") OR ( role = "start" and change_status = 1))')
                 ->select(
                     'line_up.role as role',
                     'line_up.team as team_id',
