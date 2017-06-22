@@ -58,7 +58,7 @@ class ContentService
                 'players.number as number', 
                 'players.picture as picture',
                 'players.stat_picture as stat_picture', 
-                'players.event_picturce as big_picture',
+                'players.event_picture as big_picture',
                 'players.birthdate as birthday',
                 'players.since as since',
                 'players.no_matches as no_matches'
