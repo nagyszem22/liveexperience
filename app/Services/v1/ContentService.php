@@ -300,14 +300,14 @@ class ContentService
             ->leftJoin('language_associations as laet', 'lae.text_association_id', '=', 'laet.language_association_id')
             ->leftJoin('player_to_happening as pth', 'lah.id', '=', 'pth.happening')
             ->leftJoin('players', 'pth.player', '=', 'players.id')
-            ->where('lah.match_id', $matchId)
+            ->where('lah.match_id', $matchId);
             // ->where('laen.language', $languageId)
             // ->where('laet.language', $languageId);
         if ($languageId == 1) {
-            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_hu as text', 'lae.color as event_color', 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number', 'lah.created_at as created_at', 'lah.updated_at as updated_at'
+            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_hu as text', DB::raw('ifnull(lae.color, 0) as event_color'), 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number', 'lah.created_at as created_at', 'lah.updated_at as updated_at'
             )->get();
         } else {
-            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_en as text', 'lae.color as event_color', 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number', 'lah.created_at as created_at', 'lah.updated_at as updated_at'
+            $actions = $actions->select('lah.id as id', 'lah.minute as minute', 'lah.expected_minute as expected_minute', 'lah.likes as likes', 'lah.picture as picture', 'lah.video as video', 'lah.text_en as text', DB::raw('ifnull(lae.color, 0) as event_color'), 'lae.background as event_background', 'lae.icon as event_icon', 'laen.text as event_name', 'laet.text as event_text', 'players.name as player_name', 'players.number as player_number', 'lah.created_at as created_at', 'lah.updated_at as updated_at'
             )->get();
         }
 
