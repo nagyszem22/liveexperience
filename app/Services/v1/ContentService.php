@@ -94,6 +94,7 @@ class ContentService
                     'line_up.role as role',
                     'line_up.team as team_id',
                     'line_up.change_status as changed',
+                    'players.id as player_id',
                     'players.name as name', 
                     'players.number as number', 
                     'players.picture as picture', 
@@ -299,7 +300,7 @@ class ContentService
             ->leftJoin('language_associations as laet', 'lae.text_association_id', '=', 'laet.language_association_id')
             ->leftJoin('player_to_happening as pth', 'lah.id', '=', 'pth.happening')
             ->leftJoin('players', 'pth.player', '=', 'players.id')
-            ->where('lah.match_id', $matchId);
+            ->where('lah.match_id', $matchId)
             // ->where('laen.language', $languageId)
             // ->where('laet.language', $languageId);
         if ($languageId == 1) {
